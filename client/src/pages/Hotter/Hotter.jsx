@@ -7,7 +7,7 @@ import MenuElse from "../../components/MenuElse/MenuElse";
 import { fetchMenuItems } from "../../http/menuItemAPI";
 import Loader from "../../components/UI/Loader/Loader";
 import { observer } from "mobx-react-lite";
-import { getRelevantProducts } from "../../utils/functions";
+import { getRelevantProducts, getUserCart } from "../../utils/functions";
 
 const Hotter = observer(() => {
   const title = "Горячее";
@@ -16,17 +16,19 @@ const Hotter = observer(() => {
   const [isLoading, setIsLoading] = useState(true);
   const [relevantProducts, setRelevantProducts] = useState([]);
 
+  let userCart = getUserCart(user, user.userCart);
+
   useEffect(() => {
     fetchMenuItems()
       .then((data) => {
         menuItem.setMenuItems(data);
-        setRelevantProducts(getRelevantProducts(title, menuItem, user));
+        setRelevantProducts(getRelevantProducts(title, menuItem, userCart));
       })
       .finally(() => setIsLoading(false));
   }, []);
 
   useEffect(() => {
-    setRelevantProducts(getRelevantProducts(title, menuItem, user));
+    setRelevantProducts(getRelevantProducts(title, menuItem, userCart));
   }, [JSON.stringify(user.userCart)]);
 
   return (

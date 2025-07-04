@@ -51,7 +51,7 @@ const Productitem = observer((props) => {
             ) : (
               <ButtonAdd
                 id={props.id}
-                handler={(id) => user.addToCart(id)}
+                handler={(id) => user.addToCart(user.user.id, id)}
               ></ButtonAdd>
             )
           ) : (

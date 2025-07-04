@@ -6,14 +6,20 @@ export default class UserStore {
     this._user = {};
     this._userCart = [
       {
-        id: 1,
-        quantity: 2,
+        id: 9,
+        cart: [
+          {id: 1, quantity: 2},
+          {id: 10, quantity: 1},
+        ]
       },
       {
-        id: 10,
-        quantity: 1,
-      },
+        id: 1,
+        cart: [
+          {id: 3, quantity: 1},
+        ]
+      }
     ];
+
     this._userOrderList = [];
     this._userOrders = [];
 
@@ -55,20 +61,32 @@ export default class UserStore {
     return this._userCart;
   }
 
-  addToCart(productId) {
-    this._userCart.push({ id: productId, quantity: 1 });
+  addToCart(userId, productId) {
+    let userIndex = this._userCart.findIndex(item => item.id === userId);
+    const userCart = this._userCart[userIndex];
+
+    userCart.cart.push({ id: productId, quantity: 1 });
   }
 
-  removeFromCart(productId) {
-    this._userCart = this._userCart.filter((item) => item.id !== productId);
+  removeFromCart(userId, productId) {
+    let userIndex = this._userCart.findIndex(item => item.id === userId);
+    const userCart = this._userCart[userIndex];
+
+    userCart.cart = userCart.cart.filter((item) => item.id !== productId);
   }
 
-  clearCart() {
-    this._userCart.splice(0, this._userCart.length);
+  clearCart(userId) {
+    let userIndex = this._userCart.findIndex(item => item.id === userId);
+    const userCart = this._userCart[userIndex];
+
+    userCart.cart.splice(0, this._userCart.length);
   }
 
-  updateQuantity(productId, newQuantity) {
-    const product = this._userCart.find((item) => item.id === productId);
+  updateQuantity(userId, productId, newQuantity) {
+    let userIndex = this._userCart.findIndex(item => item.id === userId);
+    const userCart = this._userCart[userIndex];
+    
+    const product = userCart.cart.find((item) => item.id === productId);
     if (product) {
       product.quantity = newQuantity;
     }

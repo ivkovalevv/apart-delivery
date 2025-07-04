@@ -4,19 +4,22 @@ import { observer } from "mobx-react-lite";
 import CartItem from "../../components/UI/CartItem/CartItem";
 import CartForm from "../../components/CartForm/CartForm";
 import "./fullcart.css";
+import { getUserCart } from "../../utils/functions";
 
 const FullCart = observer(() => {
   const { user } = useContext(Context);
   const { menuItem } = useContext(Context);
   const { modalsStore } = useContext(Context);
 
-  const cartItemsQuantityMap = user.userCart.reduce((acc, item) => {
+  let userCart = getUserCart(user, user.userCart);
+
+  const cartItemsQuantityMap = userCart.reduce((acc, item) => {
     acc[item.id] = item.quantity; // Добавляем в аккумулятор пару id:quantity
     return acc;
   }, {}); // Начальное значение аккумулятора — пустой объект {}
 
   let itemsIdCart = [];
-  user.userCart.map((item) => {
+  userCart.map((item) => {
     return itemsIdCart.push(item.id);
   });
 
@@ -37,7 +40,7 @@ const FullCart = observer(() => {
       title: "Очистить корзину",
       description: "Вы действительно хотите очистить корзину?",
       function: function () {
-        user.clearCart();
+        user.clearCart(user.user.id);
         modalsStore.setIsModalConfirmOpen(false);
       },
       buttons: 2,

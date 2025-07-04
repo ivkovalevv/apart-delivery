@@ -15,20 +15,20 @@ export const generateRandomNumber = () => {
 
 export const activeIntervals = {};
 
-export function getRelevantProducts(title, menuItem, user){
+export function getRelevantProducts(title, menuItem, userCart){
   const category = menuItem.types.find((item) => item.name === title);
 
   const products = menuItem.menuItems.rows.filter(
     (item) => item.typeId === category.id
   );
 
-  const cartItemsQuantityMap = user.userCart.reduce((acc, item) => {
+  const cartItemsQuantityMap = userCart.reduce((acc, item) => {
     acc[item.id] = item.quantity;
     return acc;
   }, {});
 
   const relevantProducts = products.map((item) => {
-    const isInCart = user.userCart.some((cartItem) => cartItem.id === item.id);
+    const isInCart = userCart.some((cartItem) => cartItem.id === item.id);
     return {
       ...item,
       inCart: isInCart,
@@ -38,3 +38,9 @@ export function getRelevantProducts(title, menuItem, user){
 
   return relevantProducts;
 };
+
+export function getUserCart(user, userCart) {
+  const userId = user.user.id;
+  const userCartData = userCart.find(item => item.id === userId);
+  return userCartData ? userCartData.cart : [];
+}

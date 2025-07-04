@@ -7,14 +7,17 @@ import Navbar from "../../components/Navbar/Navbar";
 import BurgerButton from "../../components/UI/BurgerButton/BurgerButton";
 import "./header.css";
 import "../../styles.css";
+import { getUserCart } from "../../utils/functions";
 
 const Header = observer(() => {
   const { user } = useContext(Context);
   const { modalsStore } = useContext(Context);
   const [burgerState, setBurgerState] = useState(false);
 
+  let userCart = getUserCart(user, user.userCart);
+
   let cartValue = 0;
-  user.userCart.map((item) => {
+  userCart.map((item) => {
     return (cartValue += item.quantity);
   });
 
@@ -86,7 +89,7 @@ const Header = observer(() => {
                   className="header__button button-cart hover-fades"
                   onClick={() => changeBurgerState()}
                 >
-                  {user.userCart.length > 0 ? (
+                  {userCart.length > 0 ? (
                     <div className="cart-value">{cartValue}</div>
                   ) : null}
                 </button>

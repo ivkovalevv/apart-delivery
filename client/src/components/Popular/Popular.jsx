@@ -4,12 +4,14 @@ import Productitem from "../UI/Productitem/Productitem";
 import "./popular.css";
 import { fetchMenuItems } from "../../http/menuItemAPI";
 import Loader from "../../components/UI/Loader/Loader";
+import { getUserCart } from "../../utils/functions";
 
 const Popular = () => {
   const { user } = useContext(Context);
   const { menuItem } = useContext(Context);
-
   const [isLoading, setIsLoading] = useState(true);
+
+  let userCart = getUserCart(user, user.userCart);
 
   useEffect(() => {
     fetchMenuItems()
@@ -23,7 +25,7 @@ const Popular = () => {
     return <Loader />;
   }
 
-   const cartItemsQuantityMap = user.userCart.reduce((acc, item) => {
+   const cartItemsQuantityMap = userCart.reduce((acc, item) => {
     acc[item.id] = item.quantity;
     return acc;
   }, {});
@@ -33,10 +35,11 @@ const Popular = () => {
   })
 
   const productsWithCartStatus = popularProducts.map((item) => {
-    const isInCart = user.userCart.some((cartItem) => cartItem.id === item.id);
+    const isInCart = userCart.some((cartItem) => cartItem.id === item.id);
     return {
       ...item,
       inCart: isInCart,
+      quantity: cartItemsQuantityMap[item.id],
     };
   });
 
@@ -57,7 +60,7 @@ const Popular = () => {
                 image={item.image}
                 inCart={item.inCart}
                 promo={item.promo}
-                quantity={cartItemsQuantityMap[item.id]}
+                quantity={item.quantity}
               ></Productitem>
             );
           })}

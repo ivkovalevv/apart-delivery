@@ -7,13 +7,16 @@ import "./cart.css";
 import CartEmpty from "../../components/CartEmpty/CartEmpty";
 import FullCart from "../../components/FullCart/FullCart";
 import { observer } from "mobx-react-lite";
+import { getUserCart } from "../../utils/functions";
 
 const Cart = observer(() => {
   const { user } = useContext(Context);
 
+  let userCart = getUserCart(user, user.userCart);
+
   return (
     <div className="main-container">
-      {user.userCart.length > 0 ? (
+      {userCart.length > 0 ? (
         <FullCart></FullCart>
       ) : (
         <CartEmpty></CartEmpty>
