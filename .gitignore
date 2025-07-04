@@ -1,0 +1,14 @@
+# Общие исключения
+node_modules/
+dist/
+.env
+*.log
+.DS_Store
+
+# Для клиента
+/client/node_modules/
+/client/.env
+
+# Для сервера
+/server/node_modules/
+/server/.env
