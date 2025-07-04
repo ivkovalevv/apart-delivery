@@ -19,12 +19,6 @@ const Navbar = observer((props) => {
   const { menuItem } = useContext(Context);
   const currentUrl = useLocation();
 
-  useEffect(() => {
-    fetchTypes().then((data) => {
-      menuItem.setTypes(data);
-    });
-  }, []);
-
   const burgerLinkHandler = () => {
     if (props.changeBurgerState) {
       props.changeBurgerState(false);

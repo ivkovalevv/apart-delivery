@@ -12,7 +12,7 @@ import ModalConfirm from "./components/Modals/ModalConfirm/ModalConfirm";
 import Loader from "./components/UI/Loader/Loader";
 import { Context } from "./index";
 import { check } from "./http/userAPI";
-import { fetchMenuItems } from "./http/menuItemAPI";
+import { fetchMenuItems, fetchTypes } from "./http/menuItemAPI";
 
 const App = observer(() => {
   const { user } = useContext(Context);
@@ -31,6 +31,12 @@ const App = observer(() => {
       .then((data) => {
         menuItem.setMenuItems(data);
       })
+
+      fetchTypes()
+      .then((data) => {
+        menuItem.setTypes(data);
+      })
+
       .finally(() => setLoading(false));
   }, []);
 
