@@ -1,0 +1,40 @@
+/* SHEDULE */
+
+.section__schedule {
+  padding: 40px 0px;
+  margin-bottom: 40px;
+}
+
+.section__schedule-content {
+  display: flex;
+  justify-content: space-around;
+}
+
+.section__schedule-list {
+  width: 48%;
+}
+
+.section__schedule-map {
+  width: 48%;
+  height: 300px;
+}
+
+.section__schedule-item {
+  display: flex;
+  align-items: flex-start;
+}
+
+.section__schedule-item:not(:last-child) {
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.section__schedule-item-icon {
+  margin-right: 10px;
+}
+
+.section__schedule-item-description {
+  font-size: 18px;
+  font-weight: 400;
+  color: #424242;
+}

@@ -1,0 +1,11 @@
+/* MENU */
+
+.section__main-menu {
+  margin-bottom: 40px;
+}
+
+.main-menu__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.5rem, 0.0185rem + 1.9753vw, 1.5rem);
+}

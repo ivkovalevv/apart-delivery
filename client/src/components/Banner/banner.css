@@ -1,0 +1,43 @@
+/* BUNNER */
+
+.section__hero {
+  width: 100%;
+  height: 360px;
+  padding: 38px 52px;
+  background-image: url(../../../public/assets/img/hero-banner.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-color: transparent;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 31px;
+}
+
+.hero__heading {
+  color: #ffffff;
+  font-family: "Yanone Kaffeesatz", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 60px;
+  margin-bottom: 10px;
+}
+
+.hero__description {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 400px;
+  margin-bottom: 48px;
+}
+
+.hero__button {
+  border: 1px solid #ffffff;
+  border-radius: 15px;
+  background-color: transparent;
+  padding: 12px 25px;
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 400px;
+}

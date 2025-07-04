@@ -1,0 +1,92 @@
+.modal-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 522px;
+  position: fixed;
+  z-index: 30;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  -webkit-box-shadow: 0px 7px 29px -2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 7px 29px -2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 7px 29px -2px rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  border-radius: 18px;
+}
+
+.modal {
+  display: none;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: 20;
+  background-color: #0000008b;
+}
+
+.modal-open {
+  display: flex;
+}
+
+.modal-button-close-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-button-close {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.modal-button-close:active {
+  transform: scale(0.92);
+}
+
+.modal-button-close-icon {
+  max-width: 20px;
+  max-height: 20px;
+}
+
+.modal-heading {
+  width: 100%;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  margin: 10px 0px;
+}
+
+.modal-description {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.modal-button-wrapper {
+  max-width: 300px;
+  width: 100%;
+}
+
+.modal-button {
+  width: 100%;
+  padding: 20px 27px;
+  font-size: 14px;
+  border: none;
+  border-radius: 18px;
+  color: #fff;
+  background-color: rgb(176, 202, 241);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  margin-top: 10px;
+}
+
+.modal-button:active {
+  transform: scale(0.95);
+}

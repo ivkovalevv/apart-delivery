@@ -1,0 +1,15 @@
+.form-btn-promo {
+  width: 100%;
+  color: #629aee !important;
+  border: 1px solid #629aee !important;
+  border-radius: 18px !important;
+  margin-top: 5px !important;
+  margin-bottom: 10px !important;
+  padding: 8px 25px !important;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.form-btn-promo:active {
+  transform: scale(0.98);
+}

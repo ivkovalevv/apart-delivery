@@ -1,0 +1,14 @@
+export const ADMIN_ROUTE = "/admin";
+export const LOGIN_ROUTE = "/login";
+export const REGISTRATION_ROUTE = "/registration";
+export const SHOP_ROUTE = "/";
+export const CART_ROUTE = "/cart";
+export const MENU_ITEM_ROUTE = "/menu-item";
+export const BREAKFASTS_ROUTE = "/breakfasts";
+export const SALADS_ROUTE = "/salads";
+export const HOTTER_ROUTE = "/hotter";
+export const DESSERTS_ROUTE = "/desserts";
+export const SNACKS_ROUTE = "/snacks";
+export const DRINKS_ROUTE = "/drinks";
+export const ABOUT_US_ROUTE = "/about-us";
+export const PROFILE_ROUTE = "/profile";

@@ -1,0 +1,9 @@
+.modal-buttons-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-buttons-wrapper .modal-button {
+  width: 49%;
+}

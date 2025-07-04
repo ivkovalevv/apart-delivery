@@ -1,0 +1,27 @@
+.products-item-buttons-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.products-item-button {
+  text-align: center;
+  font-size: clamp(0.875rem, 0.8311rem + 0.2195vw, 1rem);
+  color: #ffffff;
+  padding: clamp(0.25rem, 0.2061rem + 0.2195vw, 0.375rem)
+    clamp(0.5rem, 0.2805rem + 1.0977vw, 1.125rem);
+  border: none;
+  border-radius: clamp(0.625rem, 0.4769rem + 0.7407vw, 1.125rem);
+  background: rgb(159, 191, 239);
+  background: linear-gradient(
+    180deg,
+    rgba(159, 191, 239, 1) 38%,
+    rgba(157, 189, 239, 1) 59%
+  );
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.products-item-button:active {
+  transform: scale(0.95);
+}

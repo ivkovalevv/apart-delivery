@@ -1,0 +1,65 @@
+import React, { useContext, useEffect, useState } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { observer } from "mobx-react-lite";
+import AppRouter from "./components/AppRouter";
+import Navbar from "./components/Navbar/Navbar";
+import Header from "./components/Header/Header";
+import "./styles.css";
+import ModalAuth from "./components/Modals/ModalAuth/ModalAuth";
+import ModalPromoActivated from "./components/Modals/ModalPromoActivated/ModalPromoActivered";
+import ModalSuccessfulOrder from "./components/Modals/ModalSuccessfulOrder/ModalSuccessfulOrder";
+import ModalConfirm from "./components/Modals/ModalConfirm/ModalConfirm";
+import Loader from "./components/UI/Loader/Loader";
+import { Context } from "./index";
+import { check } from "./http/userAPI";
+import { fetchMenuItems } from "./http/menuItemAPI";
+
+const App = observer(() => {
+  const { user } = useContext(Context);
+  const { menuItem } = useContext(Context);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    check()
+      .then((data) => {
+        user.setUser(data);
+        user.setIsAuth(true);
+      })
+      .finally(() => setLoading(false));
+
+      fetchMenuItems()
+      .then((data) => {
+        menuItem.setMenuItems(data);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  return (
+    <BrowserRouter>
+      <Header></Header>
+      <ModalAuth></ModalAuth>
+      <ModalPromoActivated></ModalPromoActivated>
+      <ModalSuccessfulOrder></ModalSuccessfulOrder>
+      <ModalConfirm></ModalConfirm>
+      <div className="container base-container">
+        <div className="main-content">
+          <Navbar className="main-menu-list"></Navbar>
+          <AppRouter></AppRouter>
+        </div>
+        <p class="signature">
+          Created by{" "}
+          <a href="https://github.com/ivkovalevv" class="signature-link">
+            Ivkovalevv
+          </a>{" "}
+          © 2025
+        </p>
+      </div>
+    </BrowserRouter>
+  );
+});
+
+export default App;

@@ -1,0 +1,78 @@
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-image {
+  width: 200px;
+  height: 200px;
+}
+
+.form-title {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.auth-form,
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 0px 0px 30px 0px;
+}
+
+.form-auth-input {
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  border: 1px solid #cacaca;
+  border-radius: 10px;
+  color: #424242;
+  font-size: 14px;
+}
+
+.form-auth-input:focus {
+  border: 1px solid #629aee;
+  outline: 1px solid #629aee;
+}
+
+.form-auth-button {
+  background-color: transparent;
+  border: 1px solid #629aee;
+  color: #424242;
+  padding: 10px 20px;
+  border-radius: 20px;
+  margin-top: 30px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 16px;
+}
+
+.form-auth-button:focus {
+  outline: 1px solid #629aee;
+  border: 1px solid #629aee;
+  background-color: #629aee;
+  color: #fff;
+}
+
+.form-auth-button:active {
+  transform: scale(0.95);
+}
+
+.form-auth-button:hover {
+  background-color: #629aee;
+  color: #fff;
+}
+
+.form-auth-description {
+  font-size: 14px;
+  padding-left: 10px;
+}
+
+.form-auth-description-link {
+  color: #629aee;
+  border-bottom: 1px solid #629aee;
+  margin-left: 5px;
+}

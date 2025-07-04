@@ -1,0 +1,52 @@
+.products-item-buttons-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.products-item-input-num {
+  max-width: 35px;
+  width: clamp(1.5625rem, 1.3773rem + 0.9259vw, 2.1875rem);
+  background: transparent;
+  border: none;
+  font-size: clamp(1rem, 0.8519rem + 0.7407vw, 1.5rem);
+  text-align: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.products-item-input-num:focus {
+  outline: none;
+}
+
+.products-item-button-quantity {
+  width: clamp(1.6875rem, 1.5579rem + 0.6481vw, 2.125rem);
+  height: clamp(1.6875rem, 1.5579rem + 0.6481vw, 2.125rem);
+  border: none;
+  border-radius: 50%;
+  background: rgb(207, 223, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(207, 223, 255, 1) 32%,
+    rgba(212, 230, 251, 1) 48%,
+    rgba(207, 228, 252, 1) 65%
+  );
+  color: #424242;
+  font-size: clamp(1rem, 0.8519rem + 0.7407vw, 1.5rem);
+  font-weight: 600;
+  text-align: center;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.products-item-button-quantity:active {
+  transform: scale(0.95);
+}
