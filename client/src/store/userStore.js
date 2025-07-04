@@ -53,8 +53,12 @@ export default class UserStore {
     return this._user;
   }
 
-  setUserCart(userCart) {
-    this._userCart = userCart;
+  setUserCart(data) {
+    let personalCart = {
+      id: data.id,
+      cart: [],
+    }
+    this._userCart.push(personalCart);
   }
 
   get userCart() {

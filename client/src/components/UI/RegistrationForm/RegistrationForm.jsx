@@ -20,6 +20,7 @@ const RegistrationForm = observer(() => {
       data = await registration(emailRegistration, passwordRegistration);
       user.setUser(data);
       user.setIsAuth(true);
+      user.setUserCart(data);
     } catch (e) {
       alert(e.response.data.message);
     }

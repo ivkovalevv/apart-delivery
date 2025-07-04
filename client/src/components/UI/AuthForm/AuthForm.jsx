@@ -21,6 +21,7 @@ const AuthForm = observer(() => {
       data = await login(emailAuth, passwordAuth);
       user.setUser(data);
       user.setIsAuth(true);
+      user.setUserCart(data);
     } catch (e) {
       // alert(e.response.data.message);
       setIsUserExist(false);
@@ -36,25 +37,6 @@ const AuthForm = observer(() => {
     if (passwordAuth.trim() === "") {
       setIsValidPasswordAuth(false);
     }
-
-    /* if (
-      emailAuth.trim() !== "" &&
-      emailAuth.trim() === "password" &&
-      passwordAuth.trim() !== "" &&
-      passwordAuth.trim() === "password"
-    ) {
-      check();
-      user.setIsAuth(true);
-    } else if (
-      (emailAuth.trim() !== "" &&
-        emailAuth.trim() !== "password" &&
-        passwordAuth.trim() !== "") ||
-      (emailAuth.trim() !== "" &&
-        passwordAuth.trim() !== "" &&
-        passwordAuth.trim() !== "password")
-    ) {
-      return setIsUserExist(false);
-    } */
 
     if (
       emailAuth.trim() !== "" &&

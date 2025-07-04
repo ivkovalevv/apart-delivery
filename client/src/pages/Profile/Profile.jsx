@@ -268,7 +268,7 @@ const Profile = observer(() => {
           <div className="auth-success-wrapper">
             <SuccessSVG id="pattern0_169_281"></SuccessSVG>
             <h2 className="section-heading empty-profile-active-order-heading">
-              Вы успешно авторизованы! Теперь вы можете оформить заказ!
+              {`Вы успешно авторизованы под ${user.user.email}! Теперь вы можете оформить заказ!`}
             </h2>
           </div>
         )}

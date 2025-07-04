@@ -24,6 +24,7 @@ const App = observer(() => {
       .then((data) => {
         user.setUser(data);
         user.setIsAuth(true);
+        user.setUserCart(data);
       })
       .finally(() => setLoading(false));
 
