@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { LOGIN_ROUTE, CART_ROUTE, ADMIN_ROUTE } from "../../utils/consts";
+import { LOGIN_ROUTE, CART_ROUTE, ADMIN_ROUTE, PROFILE_ROUTE } from "../../utils/consts";
 import { Context } from "../../index";
 import { observer } from "mobx-react-lite";
 import Navbar from "../../components/Navbar/Navbar";
@@ -79,7 +79,7 @@ const Header = observer(() => {
                   className="header__button button-settings hover-fades"
                 ></button>
               </NavLink>
-              <NavLink to={LOGIN_ROUTE}>
+              <NavLink to={PROFILE_ROUTE}>
                 <button
                   id="header-button-auth"
                   className="header__button button-auth hover-fades"
