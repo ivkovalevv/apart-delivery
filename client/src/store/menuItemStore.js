@@ -2,24 +2,31 @@ import { makeAutoObservable } from "mobx";
 
 export default class menuItemStore {
   constructor() {
-    /* this._types = [
+    this._types = [];
+
+    this._menuItems = [];
+
+    this._menuItemsInCart = [];
+
+    this._types = [
       { id: 1, name: "Завтраки" },
       { id: 2, name: "Салаты" },
       { id: 3, name: "Горячее" },
       { id: 4, name: "Десерты" },
       { id: 5, name: "Закуски" },
       { id: 6, name: "Напитки" },
-    ]; */
+    ];
 
-    /* this._menuItems = [
+    this._menuItems = {
+      rows: [
       {
         id: 1,
         name: "Лавашики с сыром",
         price: 94,
         image: "../assets/img/Лавашики-с-сыром.png",
         promo: false,
-        raiting: "5",
-        type_id: 1,
+        raiting: true,
+        typeId: 1,
       },
       {
         id: 2,
@@ -27,8 +34,8 @@ export default class menuItemStore {
         price: 462,
         image: "../assets/img/Салат-цезарь.png",
         promo: false,
-        raiting: "2",
-        type_id: 2,
+        raiting: true,
+        typeId: 2,
       },
       {
         id: 3,
@@ -36,8 +43,8 @@ export default class menuItemStore {
         price: 671,
         image: "../assets/img/Паста-карбонара.png",
         promo: false,
-        raiting: "4",
-        type_id: 3,
+        raiting: true,
+        typeId: 3,
       },
       {
         id: 4,
@@ -45,8 +52,8 @@ export default class menuItemStore {
         price: 154,
         image: "../assets/img/Чизкейк-классический.png",
         promo: false,
-        raiting: "4",
-        type_id: 4,
+        raiting: true,
+        typeId: 4,
       },
       {
         id: 5,
@@ -54,8 +61,8 @@ export default class menuItemStore {
         price: 119,
         image: "../assets/img/Чипсы.png",
         promo: false,
-        raiting: "4",
-        type_id: 5,
+        raiting: true,
+        typeId: 5,
       },
       {
         id: 6,
@@ -63,16 +70,11 @@ export default class menuItemStore {
         price: 160,
         image: "../assets/img/Капучино.png",
         promo: false,
-        raiting: "4",
-        type_id: 6,
+        raiting: true,
+        typeId: 6,
       },
-    ]; */
-
-    this._types = [];
-
-    this._menuItems = [];
-
-    this._menuItemsInCart = [];
+    ]
+    };
 
     makeAutoObservable(this);
   }

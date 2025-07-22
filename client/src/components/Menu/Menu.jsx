@@ -10,7 +10,7 @@ const Menu = () => {
   const { menuItem } = useContext(Context);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
+  /* useEffect(() => {
       fetchTypes()
         .then((data) => {
           menuItem.setTypes(data);
@@ -20,7 +20,7 @@ const Menu = () => {
 
   if (isLoading) {
     return <Loader />;
-  } 
+  }  */
 
   return (
     <section className="section section__main-menu">

@@ -1,7 +1,7 @@
 const uuid = require('uuid');
 const path = require('path');
 const {MenuItem, MenuItemInfo} = require('../models/models');
-const ApiError = require('../error/apiError');
+const ApiError = require('../error/ApiError');
 
 class menuItemController {
     async create(req, res, next) {

@@ -13,7 +13,7 @@ const Popular = () => {
 
   let userCart = getUserCart(user, user.userCart);
 
-  useEffect(() => {
+  /* useEffect(() => {
     fetchMenuItems()
       .then((data) => {
         menuItem.setMenuItems(data);
@@ -23,7 +23,7 @@ const Popular = () => {
 
   if (isLoading) {
     return <Loader />;
-  }
+  } */
 
    const cartItemsQuantityMap = userCart.reduce((acc, item) => {
     acc[item.id] = item.quantity;

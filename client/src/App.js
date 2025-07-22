@@ -19,7 +19,7 @@ const App = observer(() => {
   const { menuItem } = useContext(Context);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  /* useEffect(() => {
     check()
       .then((data) => {
         user.setUser(data);
@@ -43,7 +43,7 @@ const App = observer(() => {
 
   if (loading) {
     return <Loader />;
-  }
+  } */
 
   return (
     <BrowserRouter>
