@@ -8,11 +8,13 @@ import BurgerButton from "../../components/UI/BurgerButton/BurgerButton";
 import "./header.css";
 import "../../styles.css";
 import { getUserCart } from "../../utils/functions";
+import ModalAuth from "../Modals/ModalAuth/ModalAuth";
 
 const Header = observer(() => {
   const { user } = useContext(Context);
-  const { modalsStore } = useContext(Context);
   const [burgerState, setBurgerState] = useState(false);
+
+  const [isModalOpened, setIsModalOpened] = useState(false);
 
   let userCart = getUserCart(user, user.userCart);
 
@@ -27,7 +29,7 @@ const Header = observer(() => {
 
   const showModal = () => {
     changeBurgerState();
-    modalsStore.setIsModalAuthOpen(true);
+    setIsModalOpened(true);
   };
 
   return (
@@ -107,7 +109,9 @@ const Header = observer(() => {
                 id="header-button-cart"
                 className="header__button button-cart hover-fades"
                 onClick={() => showModal()}
-              ></button>
+              >
+                {isModalOpened ? <ModalAuth handler={setIsModalOpened}/> : null}
+              </button>
             </div>
           )}
         </div>

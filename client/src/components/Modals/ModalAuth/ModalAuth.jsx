@@ -1,21 +1,22 @@
-import React, { useContext } from "react";
+import React from "react";
+import { createPortal } from "react-dom"
 import { NavLink } from "react-router-dom";
 import { LOGIN_ROUTE } from "../../../utils/consts";
-import { Context } from "./../../../index";
 import AuthSVG from "./../../SVG/AuthSVG";
 import "./modalauth.css";
 import { observer } from "mobx-react-lite";
 
-const ModalAuth = observer(() => {
-  const { modalsStore } = useContext(Context);
+const ModalAuth = observer((props) => {
+  const node = document.getElementById('modal-root');
+  if (!node) return null;
 
   function closeModal(e) {
     e.stopPropagation();
-    modalsStore.setIsModalAuthOpen(false);
+    props.handler(false);
   }
 
-  return (
-    <div className={modalsStore.isModalAuthOpen ? "modal modal-open" : "modal"}>
+  return createPortal(
+    <div className={"modal modal-open"}>
       <div className="modal-wrapper">
         <div className="modal-button-close-wrapper">
           <button className="modal-button-close" onClick={(e) => closeModal(e)}>
@@ -39,7 +40,8 @@ const ModalAuth = observer(() => {
           <button className="modal-button">Авторизоваться</button>
         </NavLink>
       </div>
-    </div>
+    </div>, 
+    node
   );
 });
 

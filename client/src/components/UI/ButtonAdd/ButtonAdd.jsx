@@ -1,11 +1,8 @@
-import React, { useContext } from "react";
-import { Context } from "../../../index";
+import React from "react";
 import { observer } from "mobx-react-lite";
 import "./buttonadd.css";
 
 const ButtonAdd = observer((props) => {
-  const { user } = useContext(Context);
-
   const buttonAddHandler = (e) => {
     e.stopPropagation();
     if (props.handler) {
@@ -25,6 +22,7 @@ const ButtonAdd = observer((props) => {
       >
         В корзину
       </button>
+      {props.children}
     </div>
   );
 });

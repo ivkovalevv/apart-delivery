@@ -6,11 +6,13 @@ import { MENU_ITEM_ROUTE } from "../../../utils/consts";
 import { Context } from "../../../index";
 import { observer } from "mobx-react-lite";
 import "./productitem.css";
+import ModalAuth from "../../Modals/ModalAuth/ModalAuth";
 
 const Productitem = observer((props) => {
   const { user } = useContext(Context);
-  const { modalsStore } = useContext(Context);
   const navigate = useNavigate();
+
+  const [isModalOpened, setIsModalOpened] = useState(false);
 
   return (
     <li
@@ -55,9 +57,9 @@ const Productitem = observer((props) => {
               ></ButtonAdd>
             )
           ) : (
-            <ButtonAdd
-              handlerModal={(bool) => modalsStore.setIsModalAuthOpen(bool)}
-            ></ButtonAdd>
+              <ButtonAdd handlerModal={() => setIsModalOpened(true)}>
+                {isModalOpened ? <ModalAuth handler={setIsModalOpened}/> : null}
+              </ButtonAdd>
           )}
         </div>
       </div>

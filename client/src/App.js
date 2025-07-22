@@ -48,10 +48,11 @@ const App = observer(() => {
   return (
     <BrowserRouter>
       <Header></Header>
-      <ModalAuth></ModalAuth>
+      
       <ModalPromoActivated></ModalPromoActivated>
       <ModalSuccessfulOrder></ModalSuccessfulOrder>
       <ModalConfirm></ModalConfirm>
+
       <div className="container base-container">
         <div className="main-content">
           <Navbar className="main-menu-list"></Navbar>
