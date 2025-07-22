@@ -2,23 +2,9 @@ import { makeAutoObservable, observable, action } from "mobx";
 
 export default class UserStore {
   constructor() {
-    this._isAuth = false;
-    this._user = {};
-    this._userCart = [
-      {
-        id: 9,
-        cart: [
-          {id: 1, quantity: 2},
-          {id: 10, quantity: 1},
-        ]
-      },
-      {
-        id: 1,
-        cart: [
-          {id: 3, quantity: 1},
-        ]
-      }
-    ];
+    this._isAuth = true;
+    this._user = {id: 1};
+    this._userCart = [{id: 1, cart: []}];
 
     this._userOrderList = [];
     this._userOrders = [];
@@ -68,7 +54,7 @@ export default class UserStore {
   addToCart(userId, productId) {
     let userIndex = this._userCart.findIndex(item => item.id === userId);
     const userCart = this._userCart[userIndex];
-
+    console.log(userId)
     userCart.cart.push({ id: productId, quantity: 1 });
   }
 
