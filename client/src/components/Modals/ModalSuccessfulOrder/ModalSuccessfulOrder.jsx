@@ -1,23 +1,23 @@
 import React, { useContext } from "react";
 import { Context } from "./../../../index";
+import { createPortal } from "react-dom";
 import "./modalsuccessfulorder.css";
 import { observer } from "mobx-react-lite";
 import SuccessSVG from "../../SVG/SuccessSVG";
 
-const ModalSuccessfulOrder = observer(() => {
+const ModalSuccessfulOrder = observer((props) => {
   const { user } = useContext(Context);
-  const { modalsStore } = useContext(Context);
+  const node = document.getElementById('modal-root');
+  if (!node) return null;
 
   function closeModal(e) {
     e.stopPropagation();
-    modalsStore.setIsModalSuccessfulOrderOpen(false);
+    props.handler(false);
   }
 
-  return (
+  return createPortal(
     <div
-      className={
-        modalsStore.isModalSuccessfulOrderOpen ? "modal modal-open" : "modal"
-      }
+      className={"modal modal-open"}
     >
       <div className="modal-wrapper">
         <div className="modal-button-close-wrapper">
@@ -64,7 +64,8 @@ const ModalSuccessfulOrder = observer(() => {
           Готовьте скорее! Очень жду!
         </button>
       </div>
-    </div>
+    </div>,
+    node
   );
 });
 

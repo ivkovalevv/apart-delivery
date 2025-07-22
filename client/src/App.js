@@ -49,7 +49,6 @@ const App = observer(() => {
     <BrowserRouter>
       <Header></Header>
 
-      <ModalSuccessfulOrder></ModalSuccessfulOrder>
       <ModalConfirm></ModalConfirm>
 
       <div className="container base-container">

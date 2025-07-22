@@ -2,7 +2,6 @@ import { makeAutoObservable } from "mobx";
 
 export default class ModalsStore {
   constructor() {
-    this._isModalSuccessfulOrderOpen = false;
     this._isModalConfirmOpen = false;
     this._modalConfirmOptions = {
       title: "Очиститиь корзину",
@@ -15,14 +14,6 @@ export default class ModalsStore {
     };
 
     makeAutoObservable(this);
-  }
-
-  setIsModalSuccessfulOrderOpen(bool) {
-    this._isModalSuccessfulOrderOpen = bool;
-  }
-
-  get isModalSuccessfulOrderOpen() {
-    return this._isModalSuccessfulOrderOpen;
   }
 
   setIsModalConfirmOpen(bool) {

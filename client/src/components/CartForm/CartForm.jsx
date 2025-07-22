@@ -9,12 +9,14 @@ import TextareaInput from "../UI/TextareaInput/TextareaInput";
 import OrderFormButton from "../UI/OrderFormButton/OrderFormButton";
 import PromoInput from "../UI/PromoInput/PromoInput";
 import { generateRandomNumber } from "../../utils/functions";
+import ModalSuccessfulOrder from "../Modals/ModalSuccessfulOrder/ModalSuccessfulOrder";
 
 const CartForm = observer(() => {
   const { user } = useContext(Context);
   const navigate = useNavigate();
 
   const [isPromoActivated, setIsPromoActivated] = useState(false);
+  const [isModalOpened, setIsModalOpened] = useState(false);
 
   const [nameValue, setNameValue] = useState("");
   const [isValidName, setIsValidName] = useState(true);
@@ -59,7 +61,7 @@ const CartForm = observer(() => {
           isPromoActivated ? 0 : fullCartPrice()
         } ₽. Если всё верно, нажмите на кнопку ниже.`,
         function: () => {
-          modalsStore.setIsModalSuccessfulOrderOpen(true);
+          setIsModalOpened(true);
           user.addUserOrder({
             id: generateRandomNumber(),
             date: new Date().toLocaleDateString("ru-RU", {
@@ -158,6 +160,8 @@ const CartForm = observer(() => {
           <OrderFormButton checkValidity={checkValidity}></OrderFormButton>
         </form>
       </div>
+
+      {isModalOpened ? <ModalSuccessfulOrder handler={setIsModalOpened}/> : null}
     </div>
   );
 });
