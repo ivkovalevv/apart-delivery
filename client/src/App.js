@@ -48,8 +48,7 @@ const App = observer(() => {
   return (
     <BrowserRouter>
       <Header></Header>
-      
-      <ModalPromoActivated></ModalPromoActivated>
+
       <ModalSuccessfulOrder></ModalSuccessfulOrder>
       <ModalConfirm></ModalConfirm>
 

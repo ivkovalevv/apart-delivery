@@ -1,11 +1,8 @@
-import React, { useContext } from "react";
-import { Context } from "../../../index";
+import React from "react";
 import { observer } from "mobx-react-lite";
 import "./promobutton.css";
 
 const PromoButton = observer((props) => {
-  const { modalsStore } = useContext(Context);
-
   function checkPromo(e, promo) {
     e.preventDefault();
 
@@ -13,7 +10,7 @@ const PromoButton = observer((props) => {
       props.setValidPromo(false);
       return;
     } else if (promo.trim() === "PRINCESS2305") {
-      modalsStore.setIsModalPromoActivatedOpen(true);
+      props.setIsModalOpened(true);
       props.setIsPromoActivated(true);
     } else {
       props.setIsPromoExists(false);

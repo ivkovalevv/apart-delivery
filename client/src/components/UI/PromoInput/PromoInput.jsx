@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import PromoButton from "../PromoButton/PromoButton";
+import ModalPromoActivated from "../../Modals/ModalPromoActivated/ModalPromoActivered";
 
 const PromoInput = (props) => {
   const [isPromoExists, setIsPromoExists] = useState(true);
   const [validPromo, setValidPromo] = useState(true);
+
+  const [isModalOpened, setIsModalOpened] = useState(false);
 
   const cancelPromo = () => {
     props.setInputPromo("");
@@ -65,7 +68,11 @@ const PromoInput = (props) => {
           {props.isPromoExists ? "Заполните это поле." : "Промокод не найден."}
         </p>
         {props.isPromoActivated ? (
-          <div></div>
+          <div>
+            {
+              isModalOpened ? <ModalPromoActivated handler={setIsModalOpened}/> : null
+            }
+          </div>
         ) : (
           <PromoButton
             promo={props.inputPromo}
@@ -73,6 +80,7 @@ const PromoInput = (props) => {
             isPromoActivated={props.isPromoActivated}
             setValidPromo={props.setValidPromo}
             setIsPromoExists={props.setIsPromoExists}
+            setIsModalOpened={setIsModalOpened}
           ></PromoButton>
         )}
       </div>

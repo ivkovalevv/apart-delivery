@@ -54,7 +54,6 @@ export default class UserStore {
   addToCart(userId, productId) {
     let userIndex = this._userCart.findIndex(item => item.id === userId);
     const userCart = this._userCart[userIndex];
-    console.log(userId)
     userCart.cart.push({ id: productId, quantity: 1 });
   }
 

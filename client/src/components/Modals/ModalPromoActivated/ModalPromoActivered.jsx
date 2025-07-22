@@ -1,22 +1,21 @@
-import React, { useContext } from "react";
-import { Context } from "./../../../index";
+import React from "react";
+import { createPortal } from "react-dom";
 import "./modalpromoactivated.css";
 import { observer } from "mobx-react-lite";
 import PromoSVG from "../../SVG/PromoSVG";
 
-const ModalPromoActivated = observer(() => {
-  const { modalsStore } = useContext(Context);
+const ModalPromoActivated = observer((props) => {
+  const node = document.getElementById('modal-root');
+  if (!node) return null;
 
   function closeModal(e) {
     e.stopPropagation();
-    modalsStore.setIsModalPromoActivatedOpen(false);
+    props.handler(false);
   }
 
-  return (
+  return createPortal(
     <div
-      className={
-        modalsStore.isModalPromoActivatedOpen ? "modal modal-open" : "modal"
-      }
+      className={"modal modal-open"}
     >
       <div className="modal-wrapper">
         <div className="modal-button-close-wrapper">
@@ -36,7 +35,8 @@ const ModalPromoActivated = observer(() => {
           Ого! Спасибо!
         </button>
       </div>
-    </div>
+    </div>,
+    node
   );
 });
 

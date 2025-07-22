@@ -2,7 +2,6 @@ import { makeAutoObservable } from "mobx";
 
 export default class ModalsStore {
   constructor() {
-    this._isModalPromoActivatedOpen = false;
     this._isModalSuccessfulOrderOpen = false;
     this._isModalConfirmOpen = false;
     this._modalConfirmOptions = {
@@ -16,14 +15,6 @@ export default class ModalsStore {
     };
 
     makeAutoObservable(this);
-  }
-
-  setIsModalPromoActivatedOpen(bool) {
-    this._isModalPromoActivatedOpen = bool;
-  }
-
-  get isModalPromoActivatedOpen() {
-    return this._isModalPromoActivatedOpen;
   }
 
   setIsModalSuccessfulOrderOpen(bool) {
