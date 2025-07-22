@@ -15,7 +15,6 @@ root.render(
     value={{
       user: new UserStore(),
       menuItem: new menuItemStore(),
-      modalsStore: new ModalsStore(),
     }}
   >
     <StrictMode>

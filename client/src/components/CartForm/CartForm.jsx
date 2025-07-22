@@ -41,29 +41,12 @@ const CartForm = observer(() => {
     return fullPrice;
   };
 
-  const checkValidity = (modalsStore) => {
-    if (nameValue.trim() === "" || nameValue.length < 2) {
-      setIsValidName(false);
-    }
-    if (phoneValue === "") {
-      setIsValidPhoneValue(false);
-    }
-    if (phoneValue.length < 11) {
-      setIsCorrectPhoneValue(false);
-    }
-    if (
-      nameValue.trim() !== "" &&
-      nameValue.length > 2 &&
-      phoneValue !== "" &&
-      phoneValue.length >= 11
-    ) {
-      modalsStore.setModalConfirmOptions({
-        title: "Оформление заказа",
+  const modalConfirmOptions = {
+    title: "Оформление заказа",
         description: `Вы оформляете заказ на доставку по адресу "улица Счастья, д. 23, кв. 2000" на сумму ${
           isPromoActivated ? 0 : fullCartPrice()
         } ₽. Если всё верно, нажмите на кнопку ниже.`,
         function: () => {
-          setIsModalOpened(true);
           user.addUserOrder({
             id: generateRandomNumber(),
             date: new Date().toLocaleDateString("ru-RU", {
@@ -87,15 +70,32 @@ const CartForm = observer(() => {
           setValidPromo(true);
           setIsPromoActivated(false);
 
-          user.clearCart();
+          user.clearCart(user.user.id);
 
           navigate("/profile", { replace: true });
           setIsModalConfirmOpened(false);
-          modalsStore.setIsModalConfirmOpen(false);
+          setIsModalOpened(true);
         },
         buttons: 1,
         buttonTitle: "Оформить заказ",
-      });
+  };
+
+  const checkValidity = () => {
+    if (nameValue.trim() === "" || nameValue.length < 2) {
+      setIsValidName(false);
+    }
+    if (phoneValue === "") {
+      setIsValidPhoneValue(false);
+    }
+    if (phoneValue.length < 11) {
+      setIsCorrectPhoneValue(false);
+    }
+    if (
+      nameValue.trim() !== "" &&
+      nameValue.length > 2 &&
+      phoneValue !== "" &&
+      phoneValue.length >= 11
+    ) {
       setIsModalConfirmOpened(true);
     }
   };
@@ -163,9 +163,16 @@ const CartForm = observer(() => {
         </form>
       </div>
 
-      {isModalOpened ? <ModalSuccessfulOrder handler={setIsModalOpened}/> : null}
-
-      {isModalConfirmOpened ? <ModalConfirm handler={setIsModalConfirmOpened}/> : null}
+      {isModalConfirmOpened 
+        ? <ModalConfirm 
+            handler={setIsModalConfirmOpened}
+            title={modalConfirmOptions.title}
+            description={modalConfirmOptions.description}
+            function={modalConfirmOptions.function}
+            buttons={modalConfirmOptions.buttons}
+            buttonTitle={modalConfirmOptions.buttonTitle}
+          /> 
+        : null}
     </div>
   );
 });

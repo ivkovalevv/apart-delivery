@@ -10,9 +10,19 @@ import ModalConfirm from "../Modals/ModalConfirm/ModalConfirm";
 const FullCart = observer(() => {
   const { user } = useContext(Context);
   const { menuItem } = useContext(Context);
-  const { modalsStore } = useContext(Context);
 
   const [isModalConfirmOpened, setIsModalConfirmOpened] = useState(false);
+
+  const modalConfirmOptions = {
+    title: "Очиститиь корзину",
+    description: "Вы действительно хотите очистить корзину?",
+    function: function () {
+      user.clearCart(user.user.id);
+      setIsModalConfirmOpened(false);
+    },
+    buttons: 2,
+    buttonTitle: "Оформить заказ",
+  };
 
   let userCart = getUserCart(user, user.userCart);
 
@@ -39,17 +49,6 @@ const FullCart = observer(() => {
   }, [orderList]);
 
   function clearCart() {
-    modalsStore.setModalConfirmOptions({
-      title: "Очистить корзину",
-      description: "Вы действительно хотите очистить корзину?",
-      function: function () {
-        user.clearCart(user.user.id);
-        setIsModalConfirmOpened(false);
-      },
-      buttons: 2,
-      buttonTitle: "Оформить заказ",
-    });
-    
     setIsModalConfirmOpened(true);
   }
 
@@ -86,7 +85,16 @@ const FullCart = observer(() => {
       </div>
       <CartForm></CartForm>
 
-      {isModalConfirmOpened ? <ModalConfirm handler={setIsModalConfirmOpened}/> : null}
+      {isModalConfirmOpened 
+      ? <ModalConfirm 
+          handler={setIsModalConfirmOpened}
+          title={modalConfirmOptions.title}
+          description={modalConfirmOptions.description}
+          function={modalConfirmOptions.function}
+          buttons={modalConfirmOptions.buttons}
+          buttonTitle={modalConfirmOptions.buttonTitle}
+        /> 
+      : null}
     </div>
   );
 });

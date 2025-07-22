@@ -28,16 +28,16 @@ const ModalConfirm = observer((props) => {
           </button>
         </div>
         <h3 className="modal-heading">
-          {modalsStore.modalConfirmOptions.title}
+          {props.title}
         </h3>
         <p className="modal-description">
-          {modalsStore.modalConfirmOptions.description}
+          {props.description}
         </p>
-        {modalsStore.modalConfirmOptions.buttons === 2 ? (
+        {props.buttons === 2 ? (
           <div className="modal-buttons-wrapper">
             <button
               className="modal-button"
-              onClick={() => modalsStore.modalConfirmOptions.function()}
+              onClick={() => props.function()}
             >
               Да
             </button>
@@ -48,9 +48,9 @@ const ModalConfirm = observer((props) => {
         ) : (
           <button
             className="modal-button"
-            onClick={() => modalsStore.modalConfirmOptions.function()}
+            onClick={() => props.function()}
           >
-            {modalsStore.modalConfirmOptions.buttonTitle}
+            {props.buttonTitle}
           </button>
         )}
       </div>

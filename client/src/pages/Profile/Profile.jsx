@@ -17,25 +17,25 @@ import ModalConfirm from "../../components/Modals/ModalConfirm/ModalConfirm";
 
 const Profile = observer(() => {
   const { user } = useContext(Context);
-  const { modalsStore } = useContext(Context);
   const navigate = useNavigate();
 
   const [isModalConfirmOpened, setIsModalConfirmOpened] = useState(false);
 
+
+  const modalConfirmOptions = {
+    title: "Выход из Личного кабинета",
+    description: "Вы действительно хотите выйти из личного кабинета?",
+    function: () => {
+      user.setUser({});
+      user.setIsAuth(false);
+      navigate("/login", { replace: true });
+
+      setIsModalConfirmOpened(false);
+    },
+    buttons: 2,
+  };
+
   function exit() {
-    modalsStore.setModalConfirmOptions({
-      title: "Выход из Личного кабинета",
-      description: "Вы действительно хотите выйти из личного кабинета?",
-      function: () => {
-        user.setUser({});
-        user.setIsAuth(false);
-        navigate("/login", { replace: true });
-
-        setIsModalConfirmOpened(false);
-      },
-      buttons: 2,
-    });
-
     setIsModalConfirmOpened(true);
   }
 
@@ -82,7 +82,15 @@ const Profile = observer(() => {
 
   return (
     <div className="main-container">
-      {isModalConfirmOpened ? <ModalConfirm handler={setIsModalConfirmOpened}/> : null}
+      {isModalConfirmOpened 
+        ? <ModalConfirm 
+            handler={setIsModalConfirmOpened}
+            title={modalConfirmOptions.title}
+            description={modalConfirmOptions.description}
+            function={modalConfirmOptions.function}
+            buttons={modalConfirmOptions.buttons}
+          /> 
+        : null}
 
       <div className="main-container-padding">
         <div className="profile-flex-wrapper">
