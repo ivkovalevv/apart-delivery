@@ -13,6 +13,7 @@ const ModalSuccessfulOrder = observer((props) => {
   function closeModal(e) {
     e.stopPropagation();
     props.handler(false);
+    props.confirmRedirect();
   }
 
   return createPortal(

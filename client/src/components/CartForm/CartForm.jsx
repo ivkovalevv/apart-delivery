@@ -43,42 +43,44 @@ const CartForm = observer(() => {
 
   const modalConfirmOptions = {
     title: "Оформление заказа",
-        description: `Вы оформляете заказ на доставку по адресу "улица Счастья, д. 23, кв. 2000" на сумму ${
-          isPromoActivated ? 0 : fullCartPrice()
-        } ₽. Если всё верно, нажмите на кнопку ниже.`,
-        function: () => {
-          user.addUserOrder({
-            id: generateRandomNumber(),
-            date: new Date().toLocaleDateString("ru-RU", {
-              hour: "numeric",
-              minute: "numeric",
-              second: "numeric",
-            }),
-            name: nameValue,
-            phone: phoneValue,
-            comment: textareaValue,
-            orderList: user.userOrderList,
-            fullPrice: isPromoActivated ? 0 : fullCartPrice(),
-            status: "Принят",
-          });
+    description: `Вы оформляете заказ на доставку по адресу "улица Счастья, д. 23, кв. 2000" на сумму ${
+      isPromoActivated ? 0 : fullCartPrice()
+    } ₽. Если всё верно, нажмите на кнопку ниже.`,
+    function: () => {
+      user.addUserOrder({
+        id: generateRandomNumber(),
+        date: new Date().toLocaleDateString("ru-RU", {
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric",
+        }),
+        name: nameValue,
+        phone: phoneValue,
+        comment: textareaValue,
+        orderList: user.userOrderList,
+        fullPrice: isPromoActivated ? 0 : fullCartPrice(),
+        status: "Принят",
+      });
 
-          setNameValue("");
-          setPhoneValue("");
-          setTextareaValue("");
-          setInputPromo("");
-          setIsPromoExists(true);
-          setValidPromo(true);
-          setIsPromoActivated(false);
+      setNameValue("");
+      setPhoneValue("");
+      setTextareaValue("");
+      setInputPromo("");
+      setIsPromoExists(true);
+      setValidPromo(true);
+      setIsPromoActivated(false);
 
-          user.clearCart(user.user.id);
-
-          navigate("/profile", { replace: true });
-          setIsModalConfirmOpened(false);
-          setIsModalOpened(true);
-        },
-        buttons: 1,
-        buttonTitle: "Оформить заказ",
+      setIsModalOpened(true);
+      setIsModalConfirmOpened(false);
+    },
+    buttons: 1,
+    buttonTitle: "Оформить заказ",
   };
+
+  const confirmRedirect = () => {
+    user.clearCart(user.user.id);
+    navigate("/profile", { replace: true });
+  }
 
   const checkValidity = () => {
     if (nameValue.trim() === "" || nameValue.length < 2) {
@@ -162,6 +164,13 @@ const CartForm = observer(() => {
           <OrderFormButton checkValidity={checkValidity}></OrderFormButton>
         </form>
       </div>
+
+      {isModalOpened 
+        ? <ModalSuccessfulOrder 
+            handler={setIsModalOpened}
+            confirmRedirect={confirmRedirect}
+          /> 
+        : null}
 
       {isModalConfirmOpened 
         ? <ModalConfirm 
