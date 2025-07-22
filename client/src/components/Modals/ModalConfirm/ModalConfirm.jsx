@@ -1,19 +1,22 @@
 import React, { useContext } from "react";
+import { createPortal } from "react-dom";
 import { Context } from "./../../../index";
 import { observer } from "mobx-react-lite";
 import "./modalconfirm.css";
 
-const ModalConfirm = observer(() => {
+const ModalConfirm = observer((props) => {
   const { modalsStore } = useContext(Context);
+  const node = document.getElementById('modal-root');
+  if (!node) return null;
 
   function closeModal(e) {
     e.stopPropagation();
-    modalsStore.setIsModalConfirmOpen(false);
+    props.handler(false);
   }
 
-  return (
+  return createPortal(
     <div
-      className={modalsStore.isModalConfirmOpen ? "modal modal-open" : "modal"}
+      className={"modal modal-open"}
     >
       <div className="modal-wrapper">
         <div className="modal-button-close-wrapper">
@@ -51,7 +54,8 @@ const ModalConfirm = observer(() => {
           </button>
         )}
       </div>
-    </div>
+    </div>,
+    node
   );
 });
 

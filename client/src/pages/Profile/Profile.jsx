@@ -13,11 +13,14 @@ import {
   timeInterval,
   setTimeInterval,
 } from "../../utils/functions";
+import ModalConfirm from "../../components/Modals/ModalConfirm/ModalConfirm";
 
 const Profile = observer(() => {
   const { user } = useContext(Context);
   const { modalsStore } = useContext(Context);
   const navigate = useNavigate();
+
+  const [isModalConfirmOpened, setIsModalConfirmOpened] = useState(false);
 
   function exit() {
     modalsStore.setModalConfirmOptions({
@@ -27,12 +30,13 @@ const Profile = observer(() => {
         user.setUser({});
         user.setIsAuth(false);
         navigate("/login", { replace: true });
-        modalsStore.setIsModalConfirmOpen(false);
+
+        setIsModalConfirmOpened(false);
       },
       buttons: 2,
     });
 
-    modalsStore.setIsModalConfirmOpen(true);
+    setIsModalConfirmOpened(true);
   }
 
   if (user.userOrders.length > 0) {
@@ -78,6 +82,8 @@ const Profile = observer(() => {
 
   return (
     <div className="main-container">
+      {isModalConfirmOpened ? <ModalConfirm handler={setIsModalConfirmOpened}/> : null}
+
       <div className="main-container-padding">
         <div className="profile-flex-wrapper">
           <h2 className="section-heading section__profile-heading">

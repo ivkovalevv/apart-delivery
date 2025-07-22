@@ -2,7 +2,6 @@ import { makeAutoObservable } from "mobx";
 
 export default class ModalsStore {
   constructor() {
-    this._isModalConfirmOpen = false;
     this._modalConfirmOptions = {
       title: "Очиститиь корзину",
       description: "Вы действительно хотите очистить корзину?",
@@ -14,14 +13,6 @@ export default class ModalsStore {
     };
 
     makeAutoObservable(this);
-  }
-
-  setIsModalConfirmOpen(bool) {
-    this._isModalConfirmOpen = bool;
-  }
-
-  get isModalConfirmOpen() {
-    return this._isModalConfirmOpen;
   }
 
   setModalConfirmOptions(obj) {

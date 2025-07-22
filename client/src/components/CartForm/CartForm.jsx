@@ -10,6 +10,7 @@ import OrderFormButton from "../UI/OrderFormButton/OrderFormButton";
 import PromoInput from "../UI/PromoInput/PromoInput";
 import { generateRandomNumber } from "../../utils/functions";
 import ModalSuccessfulOrder from "../Modals/ModalSuccessfulOrder/ModalSuccessfulOrder";
+import ModalConfirm from "../Modals/ModalConfirm/ModalConfirm";
 
 const CartForm = observer(() => {
   const { user } = useContext(Context);
@@ -17,6 +18,7 @@ const CartForm = observer(() => {
 
   const [isPromoActivated, setIsPromoActivated] = useState(false);
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const [isModalConfirmOpened, setIsModalConfirmOpened] = useState(false);
 
   const [nameValue, setNameValue] = useState("");
   const [isValidName, setIsValidName] = useState(true);
@@ -88,13 +90,13 @@ const CartForm = observer(() => {
           user.clearCart();
 
           navigate("/profile", { replace: true });
+          setIsModalConfirmOpened(false);
           modalsStore.setIsModalConfirmOpen(false);
         },
         buttons: 1,
         buttonTitle: "Оформить заказ",
       });
-
-      modalsStore.setIsModalConfirmOpen(true);
+      setIsModalConfirmOpened(true);
     }
   };
 
@@ -162,6 +164,8 @@ const CartForm = observer(() => {
       </div>
 
       {isModalOpened ? <ModalSuccessfulOrder handler={setIsModalOpened}/> : null}
+
+      {isModalConfirmOpened ? <ModalConfirm handler={setIsModalConfirmOpened}/> : null}
     </div>
   );
 });

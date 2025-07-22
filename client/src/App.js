@@ -49,8 +49,6 @@ const App = observer(() => {
     <BrowserRouter>
       <Header></Header>
 
-      <ModalConfirm></ModalConfirm>
-
       <div className="container base-container">
         <div className="main-content">
           <Navbar className="main-menu-list"></Navbar>
@@ -64,6 +62,7 @@ const App = observer(() => {
           © 2025
         </p>
       </div>
+      
     </BrowserRouter>
   );
 });

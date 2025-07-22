@@ -5,11 +5,14 @@ import CartItem from "../../components/UI/CartItem/CartItem";
 import CartForm from "../../components/CartForm/CartForm";
 import "./fullcart.css";
 import { getUserCart } from "../../utils/functions";
+import ModalConfirm from "../Modals/ModalConfirm/ModalConfirm";
 
 const FullCart = observer(() => {
   const { user } = useContext(Context);
   const { menuItem } = useContext(Context);
   const { modalsStore } = useContext(Context);
+
+  const [isModalConfirmOpened, setIsModalConfirmOpened] = useState(false);
 
   let userCart = getUserCart(user, user.userCart);
 
@@ -41,13 +44,13 @@ const FullCart = observer(() => {
       description: "Вы действительно хотите очистить корзину?",
       function: function () {
         user.clearCart(user.user.id);
-        modalsStore.setIsModalConfirmOpen(false);
+        setIsModalConfirmOpened(false);
       },
       buttons: 2,
       buttonTitle: "Оформить заказ",
     });
-
-    modalsStore.setIsModalConfirmOpen(true);
+    
+    setIsModalConfirmOpened(true);
   }
 
   return (
@@ -82,6 +85,8 @@ const FullCart = observer(() => {
         </ul>
       </div>
       <CartForm></CartForm>
+
+      {isModalConfirmOpened ? <ModalConfirm handler={setIsModalConfirmOpened}/> : null}
     </div>
   );
 });
