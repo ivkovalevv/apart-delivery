@@ -56,7 +56,7 @@ const App = observer(() => {
         </div>
         <p class="signature">
           Created by{" "}
-          <a href="https://github.com/ivkovalevv" class="signature-link">
+          <a href="https://github.com/ivkovalevv" target="_blank" class="signature-link">
             Ivkovalevv
           </a>{" "}
           © 2025
