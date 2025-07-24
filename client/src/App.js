@@ -13,6 +13,7 @@ import Loader from "./components/UI/Loader/Loader";
 import { Context } from "./index";
 import { check } from "./http/userAPI";
 import { fetchMenuItems, fetchTypes } from "./http/menuItemAPI";
+import Signature from "./components/Signature/Signature";
 
 const App = observer(() => {
   const { user } = useContext(Context);
@@ -54,13 +55,7 @@ const App = observer(() => {
           <Navbar className="main-menu-list"></Navbar>
           <AppRouter></AppRouter>
         </div>
-        <p className="signature">
-          Created by{" "}
-          <a href="https://github.com/ivkovalevv" target="_blank" className="signature-link">
-            Ivkovalevv
-          </a>{" "}
-          © 2025
-        </p>
+        <Signature/>
       </div>
       
     </BrowserRouter>
