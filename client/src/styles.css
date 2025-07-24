@@ -115,6 +115,11 @@ li {
   z-index: 1 !important;
 }
 
+.section__schedule-map {
+  border-radius: 10px;
+  overflow: hidden !important;
+}
+
 /* MEDIA QUERIES */
 
 @media (max-width: 1440px) {

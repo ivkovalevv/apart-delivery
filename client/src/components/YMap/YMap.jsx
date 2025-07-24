@@ -1,5 +1,8 @@
-import { YMaps, Map } from "@pbe/react-yandex-maps";
+// Yandex maps
+
+/* import { YMaps, Map } from "@pbe/react-yandex-maps";
 import "./ymap.css";
+
 
 const Ymap = () => {
   return (
@@ -12,20 +15,28 @@ const Ymap = () => {
   )
 }
 
-export default Ymap;
+export default Ymap; */
 
 // GOOGLE MAPS
 
-/* <iframe
-    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d274450.6497260677!2d11.596580418800349!3d48.134840853450434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sde!4v1603744450305!5m2!1sen!2sde"
-    width="600"
-    height="450"
+const Ymap = () => {
+  return (
+    <iframe
+    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d56577.263036839!2d30.365644!3d59.93818!!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sru!4v1710000000000!5m2!1sru!2sru"
+    width="100%"
+    height="100%"
+    borderRadius="15px"
+    overflow="hidden"
     frameborder="0"
     allowfullscreen=""
     aria-hidden="false"
     tabindex="0"
-  ></iframe> */
+    className="map"
+  ></iframe>
+  )
+}
 
+export default Ymap;
 
 // 2GIS - тестовый период до 24.08.2025
 
