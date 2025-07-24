@@ -1,20 +1,22 @@
-/* import { YMaps, Map } from "@pbe/react-yandex-maps";
+import { YMaps, Map } from "@pbe/react-yandex-maps";
 import "./ymap.css";
 
-const Ymap = () => (
-  <YMaps>
-    <Map
-      defaultState={{ center: [59.93818, 30.365644], zoom: 12 }}
-      className="componentMap"
-    />
-  </YMaps>
-);
+const Ymap = () => {
+  return (
+    <YMaps>
+      <Map
+        defaultState={{ center: [59.93818, 30.365644], zoom: 12 }}
+        className="componentMap"
+      />
+    </YMaps>
+  )
+}
 
-export default Ymap; */
 
-import React, { useEffect } from 'react';
+export default Ymap;
+
+/* import React, { useEffect } from 'react';
 import { load } from '@2gis/mapgl';
-import MapWrapper from './MapWrapper';
 
 const Ymap = () => {
     useEffect(() => {
@@ -38,4 +40,4 @@ const Ymap = () => {
     );
 };
 
-export default Ymap; 
+export default Ymap;  */
