@@ -110,6 +110,11 @@ li {
   padding: 20px 20px 0px 20px;
 }
 
+/* 2GIS MAP */
+.mapgl_SqprqBDt0m3ck8ImwnZ0{
+  z-index: 1 !important;
+}
+
 /* MEDIA QUERIES */
 
 @media (max-width: 1440px) {

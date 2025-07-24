@@ -62,7 +62,7 @@ const Schedule = () => {
           </li>
         </ul>
         <div className="map section__schedule-map">
-          {/* <Ymap></Ymap> */}
+          <Ymap/>
         </div>
       </div>
     </section>

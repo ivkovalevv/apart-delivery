@@ -54,9 +54,9 @@ const App = observer(() => {
           <Navbar className="main-menu-list"></Navbar>
           <AppRouter></AppRouter>
         </div>
-        <p class="signature">
+        <p className="signature">
           Created by{" "}
-          <a href="https://github.com/ivkovalevv" target="_blank" class="signature-link">
+          <a href="https://github.com/ivkovalevv" target="_blank" className="signature-link">
             Ivkovalevv
           </a>{" "}
           © 2025
