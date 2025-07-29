@@ -68,7 +68,7 @@ export default class UserStore {
     let userIndex = this._userCart.findIndex(item => item.id === userId);
     const userCart = this._userCart[userIndex];
 
-    userCart.cart.splice(0, this._userCart.length);
+    userCart.cart.splice(0, userCart.cart.length);
   }
 
   updateQuantity(userId, productId, newQuantity) {
