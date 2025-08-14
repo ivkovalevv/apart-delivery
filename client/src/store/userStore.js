@@ -4,7 +4,7 @@ export default class UserStore {
   constructor() {
     this._isAuth = true;
     this._user = {id: 1};
-    this._userCart = [{id: 1, cart: []}];
+    this._userCart = [{id: 1, cart: [{id: 1, quantity: 2}]}];
 
     this._userOrderList = [];
     this._userOrders = [];

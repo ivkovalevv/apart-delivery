@@ -2,7 +2,22 @@ import React from "react";
 import "./phoneinput.css";
 
 const PhoneInput = (props) => {
+  const handleFocus = (fullNumber) => {
+    if (!fullNumber.startsWith('+7 ')) {
+        props.setPhoneValue('+7 ');
+    }
+  };
+
+  const handleBlur = (fullNumber) => {
+    if (fullNumber === '+7 ') {
+        props.setPhoneValue('');
+    }
+  };
+
   const handleChange = (fullNumber) => {
+    if (!/^\+7 \d*$/.test(fullNumber) && fullNumber !== '+7 ') {
+        return;
+    }
     props.setPhoneValue(fullNumber);
 
     props.setIsValidPhoneValue(true);
@@ -17,8 +32,10 @@ const PhoneInput = (props) => {
         type="text"
         required
         value={props.phoneValue}
-        maxLength="12"
+        maxLength="13"
         onChange={(e) => handleChange(e.target.value)}
+        onFocus={(e) => handleFocus(e.target.value)}
+        onBlur={(e) => handleBlur(e.target.value)}
         placeholder={"Введите ваш номер"}
         className={
           !props.isValidPhoneValue || !props.isCorrectPhoneValue

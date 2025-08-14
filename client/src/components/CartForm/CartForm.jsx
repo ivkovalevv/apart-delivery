@@ -89,14 +89,14 @@ const CartForm = observer(() => {
     if (phoneValue === "") {
       setIsValidPhoneValue(false);
     }
-    if (phoneValue.length < 11) {
+    if (!(phoneValue === "") && phoneValue.length < 13) {
       setIsCorrectPhoneValue(false);
     }
     if (
       nameValue.trim() !== "" &&
       nameValue.length > 2 &&
       phoneValue !== "" &&
-      phoneValue.length >= 11
+      phoneValue.length === 13
     ) {
       setIsModalConfirmOpened(true);
     }
