@@ -1,12 +1,14 @@
 # Общие исключения
 node_modules/
 dist/
+build/
 .env
 *.log
 .DS_Store
 
 # Для клиента
 /client/node_modules/
+/client/build/
 /client/.env
 
 # Для сервера
