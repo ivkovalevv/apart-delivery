@@ -49,7 +49,7 @@ const ErrorFallBack = (props) => {
                         <h1 className="error-fallback__title">Похоже что-то сломалось!😦</h1>
                         <p className="error-fallback__error">Вот ошибка: <span className="error-text">{props.errorMessage}</span></p>
                         <p className="error-fallback__button-description">Сообщи разработчику, пусть скорее чинит!</p>
-                        <a href="https://t.me/x_kovalev" target="_blanc" className="error-fallback__button">Сообщить разработчику</a>
+                        <a href={`https://t.me/x_kovalev?&text=Привет!+У+тебя+на+сайте+${window.location.href}+ошибка:+"${props.errorMessage}"`} target="_blanc" className="error-fallback__button">Сообщить разработчику</a>
                     </div>
                 </div>
             </div>
