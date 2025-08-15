@@ -18,7 +18,7 @@ root.render(
     }}
   >
     <StrictMode>
-      <ErrorBoundary fallback={<p>Нечто пошло не так</p>}>
+      <ErrorBoundary>
           <App />
       </ErrorBoundary>
     </StrictMode>

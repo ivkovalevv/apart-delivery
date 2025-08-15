@@ -1,4 +1,5 @@
 import * as React from 'react';
+import ErrorFallBack from '../components/ErrorFallBack/ErrorFallBack';
 
 class ErrorBoundary extends React.Component {
     state = {
@@ -12,12 +13,7 @@ class ErrorBoundary extends React.Component {
 
         if (error) {
             return (
-                <div className="container base-container">
-                    <div className="main-content">
-                        <p>Похоже, произошла ошибка!</p>
-                        <p>{error.message}</p>
-                    </div>
-                </div>
+                <ErrorFallBack errorMessage={error.message}/>
             );
         }
         return this.props.children;

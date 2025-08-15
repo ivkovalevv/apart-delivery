@@ -87,6 +87,8 @@
 }
 
 .form-submit-btn {
+  background: #B0CAF1;
+  background: linear-gradient(90deg,rgb(149, 186, 235) 0%, rgba(98, 154, 238, 1) 100%);
   font-size: 18px !important;
 }
 
