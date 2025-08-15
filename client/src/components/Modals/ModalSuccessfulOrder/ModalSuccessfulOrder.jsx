@@ -1,14 +1,17 @@
 import React, { useContext } from "react";
-import { Context } from "./../../../index";
+import { Context } from "../../../index";
 import { createPortal } from "react-dom";
 import "./modalsuccessfulorder.css";
 import { observer } from "mobx-react-lite";
 import SuccessSVG from "../../SVG/SuccessSVG";
+import { getUserOrders } from "../../../utils/functions";
 
 const ModalSuccessfulOrder = observer((props) => {
   const { user } = useContext(Context);
   const node = document.getElementById('modal-root');
   if (!node) return null;
+
+  const userOrders = getUserOrders(user, user.userOrders);
 
   function closeModal(e) {
     e.stopPropagation();
@@ -34,8 +37,8 @@ const ModalSuccessfulOrder = observer((props) => {
         <div className="modal-content-wrapper">
           <p className="modal-content-heading">В вашем заказе:</p>
           <ul className="modal-order-list">
-            {user.userOrders.length > 0
-              ? user.userOrders[user.userOrders.length - 1].orderList.map(
+            {userOrders.length > 0
+              ? userOrders[userOrders.length - 1].orderList.map(
                   (orderItem) => {
                     return (
                       <li className="modal-order-item" key={orderItem.price}>
@@ -52,8 +55,8 @@ const ModalSuccessfulOrder = observer((props) => {
           <div className="modal-order-item">
             <p className="modal-content-heading">Итого к оплате:</p>
             <p className="modal-content-heading">{`${
-              user.userOrders.length > 0
-                ? user.userOrders[user.userOrders.length - 1].fullPrice
+              userOrders.length > 0
+                ? userOrders[userOrders.length - 1].fullPrice
                 : null
             } ₽`}</p>
           </div>

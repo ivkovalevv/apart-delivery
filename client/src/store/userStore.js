@@ -2,12 +2,12 @@ import { makeAutoObservable, observable, action } from "mobx";
 
 export default class UserStore {
   constructor() {
-    this._isAuth = true;
-    this._user = {id: 1};
-    this._userCart = [{id: 1, cart: [{id: 1, quantity: 2}]}];
+    this._isAuth = false;
+    this._user = {}; // {id: 1}
+    this._userCart = []; // [{id: 1, cart: [{id: 1, quantity: 2}, {...},]}, ...]
 
     this._userOrderList = [];
-    this._userOrders = [];
+    this._userOrders = []; // [{id: 9, orders: []}, ...]
 
     makeAutoObservable(this, {
       _isAuth: observable,
@@ -97,12 +97,25 @@ export default class UserStore {
     return this._userOrders;
   }
 
-  addUserOrder(userOrder) {
-    this._userOrders.push(userOrder);
+  addUserOrder(userId, userOrder) {
+    let userIndex = this._userOrders.findIndex(item => item.id === userId);
+    const userOrders = this._userOrders[userIndex];
+
+    if(userOrders){
+      userOrders.orders.push(userOrder);
+    } else {
+      this._userOrders.push({
+        id: userId,
+        orders: [userOrder],
+      });
+    }
   }
 
-  updateStatus(orderId, newStatus) {
-    const order = this._userOrders.find((order) => order.id === orderId);
+  updateStatus(userId, orderId, newStatus) {
+    let userIndex = this._userOrders.findIndex(item => item.id === userId);
+    const userOrders = this._userOrders[userIndex];
+
+    const order = userOrders.orders.find((order) => order.id === orderId);
     if (order) {
       order.status = newStatus;
     }

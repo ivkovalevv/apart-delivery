@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import menuItemStore from "./store/menuItemStore";
 import UserStore from "./store/userStore";
+import ErrorBoundary from "./errors/ErrorBoundary";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -17,7 +18,9 @@ root.render(
     }}
   >
     <StrictMode>
-      <App />
+      <ErrorBoundary fallback={<p>Нечто пошло не так</p>}>
+          <App />
+      </ErrorBoundary>
     </StrictMode>
   </Context.Provider>
 );

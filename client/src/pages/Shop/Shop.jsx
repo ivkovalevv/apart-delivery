@@ -15,6 +15,7 @@ const Shop = observer(() => {
         <Banner></Banner>
       </div>
       <div className="main-container-padding main-menu-container-padding">
+        <h3 className="section-heading">С чего бы начать?</h3>
         <Menu></Menu>
         <Popular></Popular>
         <Chief></Chief>

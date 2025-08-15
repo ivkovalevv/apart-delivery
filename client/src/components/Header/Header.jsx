@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 import { LOGIN_ROUTE, CART_ROUTE, ADMIN_ROUTE, PROFILE_ROUTE } from "../../utils/consts";
 import { Context } from "../../index";
 import { observer } from "mobx-react-lite";
-import Navbar from "../../components/Navbar/Navbar";
-import BurgerButton from "../../components/UI/BurgerButton/BurgerButton";
+import Navbar from "../Navbar/Navbar";
+import BurgerButton from "../UI/BurgerButton/BurgerButton";
 import "./header.css";
 import "../../styles.css";
 import { getUserCart } from "../../utils/functions";
@@ -73,16 +73,16 @@ const Header = observer(() => {
           </ul>
           {user.isAuth ? (
             <div className="header__button-container">
-              <NavLink to={ADMIN_ROUTE}>
+              {/* <NavLink to={ADMIN_ROUTE}>
                 <button
                   id="header-button-settings"
                   className="header__button button-settings hover-fades"
                 ></button>
-              </NavLink>
+              </NavLink> */}
               <NavLink to={PROFILE_ROUTE}>
                 <button
                   id="header-button-auth"
-                  className="header__button button-auth hover-fades"
+                  className="header__button button-auth button-true-auth hover-fades"
                 ></button>
               </NavLink>
               <NavLink to={CART_ROUTE}>
@@ -105,13 +105,6 @@ const Header = observer(() => {
                   className="header__button button-auth hover-fades"
                 ></button>
               </NavLink>
-              <button
-                id="header-button-cart"
-                className="header__button button-cart hover-fades"
-                onClick={() => showModal()}
-              >
-                {isModalOpened ? <ModalAuth handler={setIsModalOpened}/> : null}
-              </button>
             </div>
           )}
         </div>

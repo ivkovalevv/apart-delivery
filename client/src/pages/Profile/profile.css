@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
 }
 
 .auth-success-wrapper {
@@ -24,17 +24,24 @@
 
 .profile-active-order-heading,
 .empty-profile-active-order-heading,
+.full-profile-active-order-heading,
 .profile-orders-history-heading {
   font-size: clamp(1.125rem, 0.9615rem + 0.8177vw, 1.75rem) !important;
   margin-bottom: 17px;
 }
 
-.empty-profile-active-order-heading {
+.empty-profile-active-order-heading, .full-profile-active-order-heading {
   width: 100%;
   text-align: center;
   font-weight: 400 !important;
   font-size: clamp(1rem, 0.9421rem + 0.2897vw, 1.375rem) !important;
   margin-top: 20px !important;
+}
+
+.full-profile-active-order-heading{
+  text-align: start;
+  margin-top: 0px !important;
+  margin-bottom: 30px !important;
 }
 
 .profile__lists-wrapper {

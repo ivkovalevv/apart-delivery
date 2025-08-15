@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 import { REGISTRATION_ROUTE } from "../../../utils/consts";
 import { observer } from "mobx-react-lite";
 import { login } from "../../../http/userAPI";
+import HidePasswordSVG from "../../SVG/HidePasswordSVG";
+import ShowPasswordSVG from "../../SVG/ShowPasswordSVG";
 
 const AuthForm = observer(() => {
   const { user } = useContext(Context);
@@ -12,13 +14,15 @@ const AuthForm = observer(() => {
   const [isValidEmailAuth, setIsValidEmailAuth] = useState(true);
   const [passwordAuth, setPasswordAuth] = useState("");
   const [isValidPasswordAuth, setIsValidPasswordAuth] = useState(true);
+  const [passwordTouched, setPasswordTouched] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [isUserExist, setIsUserExist] = useState(true);
 
   const check = async () => {
     try {
       let data;
-      data = await login(emailAuth, passwordAuth);
+      data = await login(emailAuth.trim().toLowerCase(), passwordAuth.trim());
       user.setUser(data);
       user.setIsAuth(true);
       user.setUserCart(data);
@@ -44,6 +48,11 @@ const AuthForm = observer(() => {
     ) {
       check();
     }
+  };
+
+  function showPasswordHandler(e){
+    e.preventDefault();
+    showPassword ? setShowPassword(false) : setShowPassword(true);
   }
 
   return (
@@ -79,24 +88,36 @@ const AuthForm = observer(() => {
           </p>
         </div>
         <div className="form-group">
-          <input
-            id="auth-input-password"
-            type="password"
-            name="password"
-            required
-            value={passwordAuth}
-            placeholder={"Введите ваш пароль..."}
-            className={
-              isValidPasswordAuth
-                ? "form-auth-input"
-                : "form-auth-input input-invalide"
-            }
-            onChange={(e) => {
-              setPasswordAuth(e.target.value);
-              setIsValidPasswordAuth(true);
-              setIsUserExist(true);
-            }}
-          />
+          <div className="password-input-wrapper">
+            <input
+              id="auth-input-password"
+              type={showPassword ? "text" : "password"}
+              name="password"
+              required
+              value={passwordAuth}
+              placeholder={"Введите ваш пароль..."}
+              className={
+                isValidPasswordAuth
+                  ? "form-auth-input"
+                  : "form-auth-input input-invalide"
+              }
+              onChange={(e) => {
+                setPasswordAuth(e.target.value);
+                setIsValidPasswordAuth(true);
+                setIsUserExist(true);
+                setPasswordTouched(true);
+                
+                if(!e.target.value){
+                  setPasswordTouched(false);
+                }
+              }}
+            />
+            {passwordTouched 
+              ? (<button type="button" className="show-password-button" tabIndex={-1} onClick={(e) => showPasswordHandler(e)}>
+                  {showPassword ? <HidePasswordSVG/> : <ShowPasswordSVG/>}
+                </button>)
+              : null}
+          </div>
           <p
             className={
               isValidPasswordAuth

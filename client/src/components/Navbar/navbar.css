@@ -17,9 +17,9 @@
 }
 
 .burger-menu__button-wrapper {
-  width: 48%;
+  width: 100%;
   padding: 10px 5px;
-  background-color: transparent;
+  background-color: #629aee;
   cursor: pointer;
   transition: transform 0.2s ease;
   border-radius: 10px;
@@ -36,6 +36,21 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.burger-btn-profile-icon{
+  min-width: 30px;
+  min-height: 30px;
+  display: inline-block;
+  background-image: url(../../../public/assets/img/svg/user.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  margin-right: 8px;
 }
 
 .burger-menu__button-wrapper:hover {

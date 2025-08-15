@@ -3,17 +3,18 @@ import { Context } from "../../index";
 import Productitem from "../UI/Productitem/Productitem";
 import "./popular.css";
 import { fetchMenuItems } from "../../http/menuItemAPI";
-import Loader from "../../components/UI/Loader/Loader";
+import Loader from "../UI/Loader/Loader";
 import { getUserCart } from "../../utils/functions";
+import { observer } from "mobx-react-lite";
 
-const Popular = () => {
+const Popular = observer(() => {
   const { user } = useContext(Context);
   const { menuItem } = useContext(Context);
   const [isLoading, setIsLoading] = useState(true);
 
   let userCart = getUserCart(user, user.userCart);
 
-  /* useEffect(() => {
+  useEffect(() => {
     fetchMenuItems()
       .then((data) => {
         menuItem.setMenuItems(data);
@@ -23,7 +24,7 @@ const Popular = () => {
 
   if (isLoading) {
     return <Loader />;
-  } */
+  }
 
    const cartItemsQuantityMap = userCart.reduce((acc, item) => {
     acc[item.id] = item.quantity;
@@ -55,7 +56,7 @@ const Popular = () => {
                 key={item.id}
                 id={item.id}
                 name={item.name}
-                delivery_time="150 лет"
+                delivery_time="20 минут"
                 price={item.price}
                 image={item.image}
                 inCart={item.inCart}
@@ -67,6 +68,6 @@ const Popular = () => {
       </ul>
     </section>
   );
-};
+});
 
 export default Popular;

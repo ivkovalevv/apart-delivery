@@ -26,7 +26,7 @@ const Productitem = observer((props) => {
       data-title={props.name}
       data-promo={props.promo ? "Акция" : "Не акционный продукт"}
       style={{
-        backgroundImage: `url(${process.env.REACT_APP_API_URL + props.image})`,
+        backgroundImage: `url(${process.env.REACT_APP_API_URL + props.image})`, 
       }}
       onClick={(e) => {
         e.stopPropagation();

@@ -40,7 +40,7 @@ const CartItem = observer((props) => {
         <div className="cart-remove-group">
           <button
             className="remove-cart-item-button"
-            onClick={() => user.removeFromCart(props.id)}
+            onClick={() => user.removeFromCart(user.user.id, props.id)}
           >
             <svg
               width="20"

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { createPortal } from "react-dom";
-import { Context } from "./../../../index";
+import { Context } from "../../../index";
 import { observer } from "mobx-react-lite";
 import "./modalconfirm.css";
 

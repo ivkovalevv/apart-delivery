@@ -76,12 +76,12 @@
 
 .modal-button {
   width: 100%;
-  padding: 20px 27px;
-  font-size: 14px;
+  padding: 18px 14px;
+  font-size: 15px;
   border: none;
   border-radius: 18px;
   color: #fff;
-  background-color: rgb(176, 202, 241);
+  background-color: #629aee;
   cursor: pointer;
   transition: transform 0.2s ease;
   margin-top: 10px;

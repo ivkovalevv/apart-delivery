@@ -9,8 +9,6 @@
   font-weight: 500;
   font-style: normal;
   color: #424242;
-  scroll-behavior: smooth;
-  scroll-padding-top: 90px;
 }
 
 body {
@@ -144,7 +142,7 @@ li {
 @media (max-width: 1024px) {
   .header__list,
   .button-settings,
-  .button-auth {
+  .button-true-auth{
     display: none;
   }
   .header__logo-content {
@@ -300,13 +298,15 @@ li {
   .section__schedule-map {
     width: 100%;
   }
-
   .main-menu__link:first-child {
     margin-left: 10px;
   }
-
   .main-menu__link:last-child {
     margin-right: 10px;
+  }
+  .team__list-image{
+    width: 150px;
+    height: 150px;
   }
 }
 

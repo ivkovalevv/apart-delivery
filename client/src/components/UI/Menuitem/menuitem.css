@@ -7,7 +7,7 @@
   margin-bottom: 5px;
   padding: 25px;
   background-repeat: no-repeat;
-  background-size: 110%;
+  background-size: 115%;
   background-position: center center;
   display: flex;
   align-items: flex-end;
@@ -19,7 +19,7 @@
 }
 
 .main-menu__link:hover {
-  background-size: 120%;
+  background-size: 125%;
 }
 
 a[data-title="Завтраки"] {

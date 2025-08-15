@@ -25,12 +25,12 @@ const Ymap = () => {
     src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d56577.263036839!2d30.365644!3d59.93818!!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sru!4v1710000000000!5m2!1sru!2sru"
     width="100%"
     height="100%"
-    borderRadius="15px"
+    borderradius="15px"
     overflow="hidden"
-    frameborder="0"
-    allowfullscreen=""
+    frameBorder="0"
+    allowFullScreen=""
     aria-hidden="false"
-    tabindex="0"
+    tabIndex="0"
     className="map"
   ></iframe>
   )

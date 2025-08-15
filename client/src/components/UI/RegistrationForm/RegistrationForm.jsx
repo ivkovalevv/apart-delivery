@@ -4,25 +4,30 @@ import { NavLink } from "react-router-dom";
 import { LOGIN_ROUTE } from "../../../utils/consts";
 import { observer } from "mobx-react-lite";
 import { registration } from "../../../http/userAPI";
+import HidePasswordSVG from "../../SVG/HidePasswordSVG";
+import ShowPasswordSVG from "../../SVG/ShowPasswordSVG";
 
 const RegistrationForm = observer(() => {
   const { user } = useContext(Context);
   const [emailRegistration, setEmailRegistration] = useState("");
-  const [isValidEmailRegistration, setIsValidEmailRegistration] =
-    useState(true);
+  const [isValidEmailRegistration, setIsValidEmailRegistration] = useState(true);
+  const [validateMessage, setVlidateMessage] = useState("");
   const [passwordRegistration, setPasswordRegistration] = useState("");
-  const [isValidPasswordRegistration, setIsValidPasswordRegistration] =
-    useState(true);
+  const [isValidPasswordRegistration, setIsValidPasswordRegistration] = useState(true);
+  const [passwordTouched, setPasswordTouched] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const singIn = async () => {
     try {
-      let data;
-      data = await registration(emailRegistration, passwordRegistration);
+      let data = await registration(emailRegistration.trim().toLowerCase(), passwordRegistration.trim());
       user.setUser(data);
       user.setIsAuth(true);
       user.setUserCart(data);
     } catch (e) {
-      alert(e.response.data.message);
+      setVlidateMessage(e.response.data.message)
+      if(e.response.data.message == "Validation error"){
+        setVlidateMessage("Пользователь с таким email уже существует")
+      }
     }
   };
 
@@ -31,6 +36,7 @@ const RegistrationForm = observer(() => {
 
     if (emailRegistration.trim() === "") {
       setIsValidEmailRegistration(false);
+      setVlidateMessage("");
     }
     if (passwordRegistration.trim() === "") {
       setIsValidPasswordRegistration(false);
@@ -40,6 +46,11 @@ const RegistrationForm = observer(() => {
     ) {
       singIn();
     }
+  }
+
+  function showPasswordHandler(e){
+    e.preventDefault();
+    showPassword ? setShowPassword(false) : setShowPassword(true);
   }
 
   return (
@@ -60,6 +71,7 @@ const RegistrationForm = observer(() => {
           onChange={(e) => {
             setEmailRegistration(e.target.value);
             setIsValidEmailRegistration(true);
+            setVlidateMessage("");
           }}
         />
         <p
@@ -71,25 +83,46 @@ const RegistrationForm = observer(() => {
         >
           Заполните это поле.
         </p>
+        <p
+          className={
+            validateMessage != ""
+              ? "invalid-message invalid-message-name invalid-message-active"
+              : "invalid-message invalid-message-name"
+          }
+        >
+          {validateMessage}
+        </p>
       </div>
       <div className="form-group">
-        <input
-          id="registration-input-password"
-          type="password"
-          name="password"
-          required
-          value={passwordRegistration}
-          placeholder={"Придумайте пароль..."}
-          className={
-            isValidPasswordRegistration
-              ? "form-auth-input"
-              : "form-auth-input input-invalide"
-          }
-          onChange={(e) => {
-            setPasswordRegistration(e.target.value);
-            setIsValidPasswordRegistration(true);
-          }}
-        />
+        <div className="password-input-wrapper">
+          <input
+            id="registration-input-password"
+            type={showPassword ? "text" : "password"}
+            name="password"
+            required
+            value={passwordRegistration}
+            placeholder={"Придумайте пароль..."}
+            className={
+              isValidPasswordRegistration
+                ? "form-auth-input"
+                : "form-auth-input input-invalide"
+            }
+            onChange={(e) => {
+              setPasswordRegistration(e.target.value);
+              setIsValidPasswordRegistration(true);
+              setPasswordTouched(true);
+
+              if(!e.target.value){
+                setPasswordTouched(false);
+              }
+            }}
+          />
+          {passwordTouched 
+          ? (<button type="button" className="show-password-button" tabIndex={-1} onClick={(e) => showPasswordHandler(e)}>
+              {showPassword ? <HidePasswordSVG/> : <ShowPasswordSVG/>}
+            </button>)
+          : null}
+        </div>
         <p
           className={
             isValidPasswordRegistration

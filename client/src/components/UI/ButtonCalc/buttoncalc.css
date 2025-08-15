@@ -6,7 +6,7 @@
 
 .products-item-input-num {
   max-width: 35px;
-  width: clamp(1.5625rem, 1.3773rem + 0.9259vw, 2.1875rem);
+  width: fit-content;
   background: transparent;
   border: none;
   font-size: clamp(1rem, 0.8519rem + 0.7407vw, 1.5rem);

@@ -8,9 +8,10 @@ import NameInput from "../UI/NameInput/NameInput";
 import TextareaInput from "../UI/TextareaInput/TextareaInput";
 import OrderFormButton from "../UI/OrderFormButton/OrderFormButton";
 import PromoInput from "../UI/PromoInput/PromoInput";
-import { generateRandomNumber } from "../../utils/functions";
+import { generateRandomNumber, getUserOrders } from "../../utils/functions";
 import ModalSuccessfulOrder from "../Modals/ModalSuccessfulOrder/ModalSuccessfulOrder";
 import ModalConfirm from "../Modals/ModalConfirm/ModalConfirm";
+import { sendMessageTG } from "../../utils/message";
 
 const CartForm = observer(() => {
   const { user } = useContext(Context);
@@ -47,7 +48,7 @@ const CartForm = observer(() => {
       isPromoActivated ? 0 : fullCartPrice()
     } ₽. Если всё верно, нажмите на кнопку ниже.`,
     function: () => {
-      user.addUserOrder({
+      user.addUserOrder(user.user.id, {
         id: generateRandomNumber(),
         date: new Date().toLocaleDateString("ru-RU", {
           hour: "numeric",
@@ -55,7 +56,7 @@ const CartForm = observer(() => {
           second: "numeric",
         }),
         name: nameValue,
-        phone: phoneValue,
+        phone: phoneValue.split(" ").join(''),
         comment: textareaValue,
         orderList: user.userOrderList,
         fullPrice: isPromoActivated ? 0 : fullCartPrice(),
@@ -72,6 +73,8 @@ const CartForm = observer(() => {
 
       setIsModalOpened(true);
       setIsModalConfirmOpened(false);
+
+      sendMessageTG(getUserOrders(user, user.userOrders), nameValue, phoneValue.split(" ").join(''), textareaValue, user.userOrderList, isPromoActivated ? 0 : fullCartPrice());
     },
     buttons: 1,
     buttonTitle: "Оформить заказ",

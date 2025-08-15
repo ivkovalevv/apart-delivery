@@ -32,6 +32,7 @@ const Footer = () => {
           <li className="footer__contacts-item">
             <a
               href="https://vk.com/x.kovalev"
+              target="_blank"
               className="footer__contacts-item-social"
             >
               <img
@@ -41,6 +42,7 @@ const Footer = () => {
             </a>
             <a
               href="https://t.me/x_kovalev"
+              target="_blank"
               className="footer__contacts-item-social"
             >
               <img
@@ -50,6 +52,7 @@ const Footer = () => {
             </a>
             <a
               href="https://wa.me/+79151049060"
+              target="_blank"
               className="footer__contacts-item-social"
             >
               <img
@@ -60,7 +63,7 @@ const Footer = () => {
           </li>
         </ul>
         <div className="footer__contacts-qr-block">
-          <a href="https://t.me/x_kovalev" className="footer__contacts-qr">
+          <a href="https://t.me/x_kovalev" target="_blank" className="footer__contacts-qr">
             <img
               src="./assets/img/qr.png"
               className="footer__contacts-qr-image"

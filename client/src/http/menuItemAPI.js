@@ -6,6 +6,6 @@ export const fetchTypes = async () => {
 };
 
 export const fetchMenuItems = async () => {
-  const { data } = await $host.get("api/menu-item");
+  const { data } = await $host.get("api/menu-item"); 
   return data;
 };

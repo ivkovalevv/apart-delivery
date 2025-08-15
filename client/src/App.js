@@ -1,14 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import AppRouter from "./components/AppRouter";
 import Navbar from "./components/Navbar/Navbar";
 import Header from "./components/Header/Header";
 import "./styles.css";
-import ModalAuth from "./components/Modals/ModalAuth/ModalAuth";
-import ModalPromoActivated from "./components/Modals/ModalPromoActivated/ModalPromoActivered";
-import ModalSuccessfulOrder from "./components/Modals/ModalSuccessfulOrder/ModalSuccessfulOrder";
-import ModalConfirm from "./components/Modals/ModalConfirm/ModalConfirm";
 import Loader from "./components/UI/Loader/Loader";
 import { Context } from "./index";
 import { check } from "./http/userAPI";
@@ -20,12 +16,17 @@ const App = observer(() => {
   const { menuItem } = useContext(Context);
   const [loading, setLoading] = useState(true);
 
-  /* useEffect(() => {
+  useEffect(() => {
     check()
       .then((data) => {
         user.setUser(data);
         user.setIsAuth(true);
         user.setUserCart(data);
+      })
+      .catch((error) => {
+        if (error.response?.status !== 401) {
+          console.error('Check error:', error);
+        }
       })
       .finally(() => setLoading(false));
 
@@ -44,7 +45,7 @@ const App = observer(() => {
 
   if (loading) {
     return <Loader />;
-  } */
+  }
 
   return (
     <BrowserRouter>
@@ -53,7 +54,7 @@ const App = observer(() => {
       <div className="container base-container">
         <div className="main-content">
           <Navbar className="main-menu-list"></Navbar>
-          <AppRouter></AppRouter>
+           <AppRouter/>
         </div>
         <Signature/>
       </div>

@@ -23,7 +23,7 @@ const Cart = observer(() => {
       )}
       <div className="main-container-padding main-menu-container-padding">
         <h2 className="section-heading section__popular-heading">
-          {user.userCart.length > 0
+          {userCart.length > 0
             ? "А может что-то ещё?"
             : "Попробовать кулинарные шедевры"}
         </h2>

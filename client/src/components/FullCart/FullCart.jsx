@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../index";
 import { observer } from "mobx-react-lite";
-import CartItem from "../../components/UI/CartItem/CartItem";
-import CartForm from "../../components/CartForm/CartForm";
+import CartItem from "../UI/CartItem/CartItem";
+import CartForm from "../CartForm/CartForm";
 import "./fullcart.css";
 import { getUserCart } from "../../utils/functions";
 import ModalConfirm from "../Modals/ModalConfirm/ModalConfirm";
+import { runInAction } from "mobx";
 
 const FullCart = observer(() => {
   const { user } = useContext(Context);
@@ -40,13 +41,16 @@ const FullCart = observer(() => {
     itemsIdCart.includes(item.id)
   );
 
-  orderList.map((item) => {
-    item.quantity = cartItemsQuantityMap[item.id];
+  const newOrderList = [...orderList].map((item) => {
+    runInAction(() => {
+      item.quantity = cartItemsQuantityMap[item.id];
+    });
+    return item;
   });
 
   useEffect(() => {
-    user.setUserOrderList(orderList);
-  }, [orderList]);
+    user.setUserOrderList(newOrderList);
+  }, [newOrderList]);
 
   function clearCart() {
     setIsModalConfirmOpened(true);
@@ -55,7 +59,7 @@ const FullCart = observer(() => {
   return (
     <div className="main-container-padding cart-wrapper">
       <div className="cart-list-wrapper">
-        <div class="cart-list-title-wrapper">
+        <div className="cart-list-title-wrapper">
           <h2 className="section-heading section-cart-heading">Ваша корзина</h2>
           {orderList.length ? (
             <button
@@ -73,7 +77,7 @@ const FullCart = observer(() => {
                 key={item.id}
                 id={item.id}
                 name={item.name}
-                delivery_time="150 лет"
+                delivery_time="20 мин."
                 price={item.price}
                 image={item.image}
                 inCart={true}

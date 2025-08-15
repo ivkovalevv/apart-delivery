@@ -44,3 +44,9 @@ export function getUserCart(user, userCart) {
   const userCartData = userCart.find(item => item.id === userId);
   return userCartData ? userCartData.cart : [];
 }
+
+export function getUserOrders(user, userOrders) {
+  const userId = user.user.id;
+  const userOrdersData = userOrders.find(item => item.id === userId);
+  return userOrdersData ? userOrdersData.orders : [];
+}

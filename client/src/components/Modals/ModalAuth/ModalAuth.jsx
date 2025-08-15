@@ -2,7 +2,7 @@ import React from "react";
 import { createPortal } from "react-dom";
 import { NavLink } from "react-router-dom";
 import { LOGIN_ROUTE } from "../../../utils/consts";
-import AuthSVG from "./../../SVG/AuthSVG";
+import AuthSVG from "../../SVG/AuthSVG";
 import "./modalauth.css";
 import { observer } from "mobx-react-lite";
 

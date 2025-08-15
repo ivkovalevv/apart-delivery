@@ -75,13 +75,16 @@
 }
 
 .remove-cart-item-button {
-  width: clamp(1.625rem, 1.5596rem + 0.3271vw, 1.875rem);
-  height: clamp(1.625rem, 1.5596rem + 0.3271vw, 1.875rem);
+  width: clamp(0.875rem, 0.7994rem + 0.3721vw, 1.125rem); /* 18px > 14px */
+  min-width: 14px;
+  height: clamp(0.875rem, 0.7994rem + 0.3721vw, 1.125rem); /* 18px > 14px */
+  min-height: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: transparent;
   border: none;
   border-radius: 50%;
+  padding: 0px;
   cursor: pointer;
 }

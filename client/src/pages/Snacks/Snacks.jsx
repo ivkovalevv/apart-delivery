@@ -44,7 +44,7 @@ const Snacks = observer(() => {
                   key={item.id}
                   id={item.id}
                   name={item.name}
-                  delivery_time="150 лет"
+                  delivery_time="20 мин."
                   price={item.price}
                   image={item.image}
                   inCart={item.inCart}
