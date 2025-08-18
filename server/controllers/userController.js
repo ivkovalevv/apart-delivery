@@ -1,3 +1,4 @@
+
 const ApiError = require('../error/ApiError');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -74,6 +75,33 @@ class userController {
 
         return res.json({token});
     }
+
+    async update(req, res, next) {
+        try {
+            const { id, userName, userTel } = req.body;
+            
+            if (!userName && !userTel) {
+                return next(ApiError.badRequest('Не указаны данные для обновления'));
+            }
+            
+            const user = await User.findOne({where: {id}});
+            if (!user) {
+                return next(ApiError.badRequest('Пользователь не найден'));
+            }
+            
+            if (userName) user.userName = userName;
+            if (userTel) user.userTel = userTel;
+            
+            await user.save();
+            
+            const token = generateJwt(user.id, user.email, user.role, user.userName, user.userTel);
+            
+            return res.json({token});
+        } catch (e) {
+            next(ApiError.internal(e.message));
+        }
+    }
+        
 }
 
 module.exports = new userController();

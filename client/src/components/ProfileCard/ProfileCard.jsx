@@ -6,6 +6,7 @@ import ConfirmSVG from "../SVG/ConfirmSVG";
 import NameInput from "../UI/NameInput/NameInput";
 import PhoneInput from "../UI/PhoneInput/PhoneInput";
 import { Context } from "../../index";
+import { update } from "../../http/userAPI";
 
 const ProfileCard = observer(() => {
     const { user } = useContext(Context);
@@ -16,6 +17,18 @@ const ProfileCard = observer(() => {
     const [isValidName, setIsValidName] = useState(true);
     const [isValidPhoneValue, setIsValidPhoneValue] = useState(true);
     const [isCorrectPhoneValue, setIsCorrectPhoneValue] = useState(true);
+
+    const updateUser = async (id, userName, userTel) => {
+        try {
+          let data;
+          data = await update(id, userName.trim(), userTel);
+          user.setUser(data);
+          setIsEditable(false);
+        } catch (e) {
+          alert(e.response.data.message);
+        }
+      };
+    
 
     const checkValidity = () => {
         if (profileName.trim() === "" || profileName.length <= 2) {
@@ -33,7 +46,7 @@ const ProfileCard = observer(() => {
             profileTel !== "" &&
             profileTel.length === 13
         ) {
-            setIsEditable(false);
+            updateUser(user.user.id, profileName, profileTel)
         }
     };
 
