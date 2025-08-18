@@ -1,11 +1,13 @@
 
 const ApiError = require('../error/ApiError');
+const uuid = require('uuid');
+const path = require('path');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const {User, Cart} = require('../models/models')
 
-const generateJwt = (id, email, role, userName, userTel) => {
-    return jwt.sign({id, email, role, userName, userTel}, process.env.SECRET_KEY, {expiresIn: '24h'})
+const generateJwt = (id, email, role, userName, userTel, image) => {
+    return jwt.sign({id, email, role, userName, userTel, image}, process.env.SECRET_KEY, {expiresIn: '24h'})
 }
 
 class userController {
@@ -79,8 +81,11 @@ class userController {
     async update(req, res, next) {
         try {
             const { id, userName, userTel } = req.body;
+            const {image} = req.files;
+            let fileName = uuid.v4() + ".png";
+            image.mv(path.resolve(__dirname, '..', 'static', fileName));
             
-            if (!userName && !userTel) {
+            if (!userName && !userTel && !image) {
                 return next(ApiError.badRequest('Не указаны данные для обновления'));
             }
             
@@ -91,10 +96,11 @@ class userController {
             
             if (userName) user.userName = userName;
             if (userTel) user.userTel = userTel;
+            if (image) user.image = fileName;
             
             await user.save();
             
-            const token = generateJwt(user.id, user.email, user.role, user.userName, user.userTel);
+            const token = generateJwt(user.id, user.email, user.role, user.userName, user.userTel, user.image);
             
             return res.json({token});
         } catch (e) {

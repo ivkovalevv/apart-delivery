@@ -7,7 +7,8 @@ const User = sequelize.define('user', {
     password: {type: DataTypes.STRING},
     role: {type: DataTypes.STRING, defaultValue: 'USER'},
     userName: {type: DataTypes.STRING, defaultValue: 'Гость'},
-    userTel: {type: DataTypes.STRING, defaultValue: '+79999999999'}
+    userTel: {type: DataTypes.STRING, defaultValue: '+79999999999'},
+    image: {type: DataTypes.STRING, allowNull: false, defaultValue: "default-avatar.png"},
 });
 
 const Cart = sequelize.define('cart', {
