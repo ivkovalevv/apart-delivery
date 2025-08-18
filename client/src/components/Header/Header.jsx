@@ -8,7 +8,6 @@ import BurgerButton from "../UI/BurgerButton/BurgerButton";
 import "./header.css";
 import "../../styles.css";
 import { getUserCart } from "../../utils/functions";
-import ModalAuth from "../Modals/ModalAuth/ModalAuth";
 
 const Header = observer(() => {
   const { user } = useContext(Context);

@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./profilecard.css"
 import { observer } from "mobx-react-lite";
 import EditSVG from "../../components/SVG/EditSVG"
 import ConfirmSVG from "../SVG/ConfirmSVG";
 import NameInput from "../UI/NameInput/NameInput";
 import PhoneInput from "../UI/PhoneInput/PhoneInput";
+import { Context } from "../../index";
 
 const ProfileCard = observer(() => {
+    const { user } = useContext(Context);
     const [isEditable, setIsEditable] = useState(false);
 
-    const [profileName, setProfileName] = useState('Гость');
-    const [profileTel, setProfileTel] = useState('+71235467890');
+    const [profileName, setProfileName] = useState(user.user.userName || 'Гость');
+    const [profileTel, setProfileTel] = useState(user.user.userTel || '+71235467890');
     const [isValidName, setIsValidName] = useState(true);
     const [isValidPhoneValue, setIsValidPhoneValue] = useState(true);
     const [isCorrectPhoneValue, setIsCorrectPhoneValue] = useState(true);
