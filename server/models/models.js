@@ -5,7 +5,9 @@ const User = sequelize.define('user', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     email: {type: DataTypes.STRING, unique: true},
     password: {type: DataTypes.STRING},
-    role: {type: DataTypes.STRING, defaultValue: 'USER'}
+    role: {type: DataTypes.STRING, defaultValue: 'USER'},
+    userName: {type: DataTypes.STRING, defaultValue: 'Гость'},
+    userTel: {type: DataTypes.STRING, defaultValue: '+79999999999'}
 });
 
 const Cart = sequelize.define('cart', {

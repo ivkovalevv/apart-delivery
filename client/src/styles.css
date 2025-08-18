@@ -91,6 +91,7 @@ li {
 .signature-link {
   color: #629aee;
   background: -webkit-linear-gradient(left, #629aee, #213755);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   border-bottom: 1px solid #629aee;
