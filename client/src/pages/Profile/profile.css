@@ -9,9 +9,8 @@
 .auth-success-wrapper {
   width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .section__profile-heading {
@@ -22,26 +21,32 @@
   padding: 7px 30px;
 }
 
-.profile-active-order-heading,
-.empty-profile-active-order-heading,
-.full-profile-active-order-heading,
 .profile-orders-history-heading {
   font-size: clamp(1.125rem, 0.9615rem + 0.8177vw, 1.75rem) !important;
   margin-bottom: 17px;
 }
 
-.empty-profile-active-order-heading, .full-profile-active-order-heading {
-  width: 100%;
-  text-align: center;
-  font-weight: 400 !important;
-  font-size: clamp(1rem, 0.9421rem + 0.2897vw, 1.375rem) !important;
-  margin-top: 20px !important;
+.profile-active-order-heading,
+.empty-profile-active-order-heading,
+.full-profile-active-order-heading{
+  font-size: clamp(1.125rem, 0.9615rem + 0.8177vw, 1.75rem) !important;
 }
 
-.full-profile-active-order-heading{
-  text-align: start;
-  margin-top: 0px !important;
-  margin-bottom: 30px !important;
+.profile-active-order-heading-wrapper{
+  width: 69%;
+  height: clamp(6rem, 5.6296rem + 1.8519vw, 7.25rem);
+  border-radius: 20px;
+  background-color: #E0F1FF;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.profile-active-order-heading{
+  font-weight: 600 !important;
+  font-size: clamp(1rem, 0.9421rem + 0.2897vw, 1.375rem) !important;
+  margin-bottom: 0px !important;
+  margin-left: 15px;
 }
 
 .profile__lists-wrapper {
@@ -274,9 +279,6 @@
   .profile__order-list {
     width: 100%;
     margin-top: 10px;
-  }
-  .profile-active-order-heading {
-    margin-bottom: 10px !important;
   }
   .profile-border {
     padding-top: 0px;

@@ -6,9 +6,10 @@ import Footer from "../../components/Footer/Footer";
 import Menu from "../../components/Menu/Menu";
 import { observer } from "mobx-react-lite";
 import "./profile.css";
-import SuccessSVG from "../../components/SVG/SuccessSVG";
 import { activeIntervals, getUserOrders } from "../../utils/functions";
 import ModalConfirm from "../../components/Modals/ModalConfirm/ModalConfirm";
+import ProfileCard from "../../components/ProfileCard/ProfileCard";
+import MailSVG from "../../components/SVG/MailSVG";
 
 const Profile = observer(() => {
   const { user } = useContext(Context);
@@ -103,9 +104,13 @@ const Profile = observer(() => {
         </div>
         {userOrders.length > 0 ? (
           <div className="profile__content">
-            <h2 className="section-heading full-profile-active-order-heading">
-              {`Вы авторизованы под ${user.user.email}`}
-            </h2>
+            <div className="auth-success-wrapper">
+            <ProfileCard/>
+            <div className="profile-active-order-heading-wrapper">
+              <MailSVG/>
+              <h3 className="section-heading profile-active-order-heading">{`Вы успешно авторизованы под ${user.user.email}!`}</h3>
+            </div>
+          </div>
             <div className="profile__active-order">
               <div className="active-order-track">
                 <ul className="active-order-track-circles">
@@ -280,10 +285,11 @@ const Profile = observer(() => {
           </div>
         ) : (
           <div className="auth-success-wrapper">
-            <SuccessSVG id="pattern0_169_281"></SuccessSVG>
-            <h2 className="section-heading empty-profile-active-order-heading">
-              {`Вы успешно авторизованы под ${user.user.email}!`}
-            </h2>
+            <ProfileCard/>
+            <div className="profile-active-order-heading-wrapper">
+              <MailSVG/>
+              <h3 className="section-heading profile-active-order-heading">{`Вы успешно авторизованы под ${user.user.email}!`}</h3>
+            </div>
           </div>
         )}
       </div>

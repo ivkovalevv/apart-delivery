@@ -186,6 +186,16 @@ li {
   .price-group-desktop {
     display: none;
   }
+  .auth-success-wrapper{
+    flex-direction: column-reverse;
+  }
+  .profile-active-order-heading-wrapper{
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .profile-card{
+    width: 100%;
+  }
 }
 
 @media (max-width: 845px) {

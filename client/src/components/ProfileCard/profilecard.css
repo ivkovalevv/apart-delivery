@@ -1,0 +1,70 @@
+.profile-card{
+    width: 30%;
+    height: clamp(6rem, 5.6296rem + 1.8519vw, 7.25rem);
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #E0F1FF;
+}
+
+.profile-card-wrapper{
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: auto;
+}
+
+.profile-card-avatar{
+    width: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
+    height: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
+    margin-right: 15px;
+}
+
+.profile-card-name{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.profile-card-tel{
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.profile-card-edit-button{
+    position: absolute;
+    z-index: 1000;
+    top: 0px;
+    right: 0px;
+    width: 30px;
+    height: 30px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color .2s ease, transform .2s ease;
+}
+
+.profile-card-edit-button:hover{
+    background-color: rgba(159, 191, 239, 1);
+}
+
+.profile-card-edit-button:active{
+    transform: scale(0.95);
+}
+
+.profile-card-info * input{
+  width: 80%;
+  padding: 4px 4px;
+}
+
+.profile-card-info * label {
+    display: none;
+}
+
+.profile-card-info * .invalid-message{
+    font-size: 10px;
+}
