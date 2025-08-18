@@ -3,7 +3,7 @@ import "./phoneinput.css";
 
 const PhoneInput = (props) => {
   const handleFocus = (fullNumber) => {
-    if (!fullNumber.startsWith('+7 ')) {
+    if (!fullNumber.startsWith('+7 ') && fullNumber !== "+79999999999") {
         props.setPhoneValue('+7 ');
     }
   };
@@ -15,7 +15,7 @@ const PhoneInput = (props) => {
   };
 
   const handleChange = (fullNumber) => {
-    if (!/^\+7 \d*$/.test(fullNumber) && fullNumber !== '+7 ') {
+    if (!/^\+7 \d*$/.test(fullNumber) && fullNumber !== '+7 ' && fullNumber !== '+79999999999') {
         return;
     }
     props.setPhoneValue(fullNumber);
