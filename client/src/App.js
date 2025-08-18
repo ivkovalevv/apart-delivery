@@ -47,8 +47,6 @@ const App = observer(() => {
     return <Loader />;
   }
 
-  console.log(user);
-
   return (
     <BrowserRouter>
       <Header></Header>

@@ -3,8 +3,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const {User, Cart} = require('../models/models')
 
-const generateJwt = (id, email, role) => {
-    return jwt.sign({id, email, role}, process.env.SECRET_KEY, {expiresIn: '24h'})
+const generateJwt = (id, email, role, userName, userTel) => {
+    return jwt.sign({id, email, role, userName, userTel}, process.env.SECRET_KEY, {expiresIn: '24h'})
 }
 
 class userController {
@@ -22,7 +22,7 @@ class userController {
                 role: 'USER'
             });
 
-            const token = generateJwt(user.id, user.email, user.role) 
+            const token = generateJwt(user.id, user.email, user.role, user.userName, user.userTel) 
     
             return res.json({token});
         } catch (e) {
@@ -64,13 +64,13 @@ class userController {
             return next(ApiError.internal('Введён неверный пароль'))
         }
 
-        const token = generateJwt(user.id, user.email, user.role)
+        const token = generateJwt(user.id, user.email, user.role, user.userName, user.userTel)
 
         return res.json({token})
     }
 
     async checkAuth(req, res, next) {
-        const token = generateJwt(req.user.id, req.user.email, req.user.role);
+        const token = generateJwt(req.user.id, req.user.email, req.user.role, req.user.userName, req.user.userTel);
 
         return res.json({token});
     }
