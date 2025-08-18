@@ -67,13 +67,13 @@ class userController {
             return next(ApiError.internal('Введён неверный пароль'))
         }
 
-        const token = generateJwt(user.id, user.email, user.role, user.userName, user.userTel)
+        const token = generateJwt(user.id, user.email, user.role, user.userName, user.userTel, user.image)
 
         return res.json({token})
     }
 
     async checkAuth(req, res, next) {
-        const token = generateJwt(req.user.id, req.user.email, req.user.role, req.user.userName, req.user.userTel);
+        const token = generateJwt(req.user.id, req.user.email, req.user.role, req.user.userName, req.user.userTel, req.user.image);
 
         return res.json({token});
     }

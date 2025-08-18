@@ -32,7 +32,6 @@ const App = observer(() => {
 
       fetchMenuItems()
       .then((data) => {
-        console.log(data)
         menuItem.setMenuItems(data);
       })
 

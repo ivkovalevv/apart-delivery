@@ -54,7 +54,7 @@ const ProfileCard = observer(() => {
     return (
         <div className="profile-card">
             <div className="profile-card-wrapper">
-                <img src="./assets/img/default-avatar.png" alt="Аватар" className="profile-card-avatar"/>
+                <img src={process.env.REACT_APP_API_URL + user.user.image || "./assets/img/default-avatar.png"} alt="Аватар" className="profile-card-avatar"/>
                 <div className="profile-card-info">
                     {isEditable 
                         ? (<NameInput
