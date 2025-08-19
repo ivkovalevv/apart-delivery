@@ -32,6 +32,7 @@ const ProfileCard = observer(() => {
     
 
     const checkValidity = () => {
+        console.log(userImage)
         if (profileName.trim() === "" || profileName.length <= 2) {
             setIsValidName(false);
         }
@@ -56,7 +57,7 @@ const ProfileCard = observer(() => {
         <div className="profile-card">
             {isEditable 
             ? (<form className="profile-card-wrapper">
-                <input type="file"/>
+                <input type="file" onChange={(e) => setUserImage(e.target.files[0])}/>
                 <div className="profile-card-info">
                     <NameInput
                         nameValue={profileName}
