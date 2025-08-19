@@ -82,7 +82,7 @@ class userController {
         try {
             const { id, userName, userTel } = req.body;
             const {image} = req.files;
-            let fileName = uuid.v4() + ".png";
+            let fileName = uuid.v4() + "-id-" + id + "-avatar.png";
             image.mv(path.resolve(__dirname, '..', 'static', fileName));
             
             if (!userName && !userTel) {
