@@ -17,6 +17,7 @@
     width: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
     height: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
     margin-right: 15px;
+    border-radius: 50%;
 }
 
 .profile-card-name{
@@ -32,7 +33,7 @@
 
 .profile-card-edit-button{
     position: absolute;
-    z-index: 1000;
+    z-index: 2;
     top: 0px;
     right: 0px;
     width: 30px;

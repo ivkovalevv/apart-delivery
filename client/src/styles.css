@@ -331,9 +331,6 @@ li {
   .base-container {
     width: 100%;
   }
-  .logo-content {
-    min-width: 250px;
-  }
   .header__logo-heading {
     font-size: 18px;
   }
@@ -411,9 +408,6 @@ li {
 }
 
 @media (max-width: 325px) {
-  .logo-content {
-    min-width: 190px;
-  }
   .header__logo {
     display: none;
   }

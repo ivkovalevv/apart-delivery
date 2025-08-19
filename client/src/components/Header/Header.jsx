@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { LOGIN_ROUTE, CART_ROUTE, ADMIN_ROUTE, PROFILE_ROUTE } from "../../utils/consts";
 import { Context } from "../../index";
@@ -26,11 +26,6 @@ const Header = observer(() => {
     setBurgerState(value);
   };
 
-  const showModal = () => {
-    changeBurgerState();
-    setIsModalOpened(true);
-  };
-
   return (
     <div className="header-wrapper">
       <header className="header">
@@ -43,7 +38,7 @@ const Header = observer(() => {
             <div className="logo header__logo"></div>
             <div className="header__logo-text-container">
               <h4 className="heading header__logo-heading">
-                Квартирная доставка
+                Apart Delivery
               </h4>
               <div className="header__logo-description-container">
                 <p className="description header__logo-description">
@@ -79,10 +74,7 @@ const Header = observer(() => {
                 ></button>
               </NavLink> */}
               <NavLink to={PROFILE_ROUTE}>
-                <button
-                  id="header-button-auth"
-                  className="header__button button-auth button-true-auth hover-fades"
-                ></button>
+                <img src={process.env.REACT_APP_API_URL + user.user.image || "./assets/img/default-avatar.png"} alt="Аватар" className="header-profile-avatar"/>
               </NavLink>
               <NavLink to={CART_ROUTE}>
                 <button

@@ -26,7 +26,6 @@
 
 .logo-content {
   display: flex;
-  min-width: 272px;
   align-items: center;
   cursor: pointer;
   margin-right: auto;
@@ -61,7 +60,7 @@
 .header__logo-description {
   text-align: center;
   color: #ffffff;
-  font-size: 12px;
+  font-size: clamp(0.625rem, 0.588rem + 0.1852vw, 0.75rem);
   font-weight: 400;
 }
 
@@ -91,6 +90,8 @@
 
 .header__button-container {
   margin-left: 50px;
+  display: flex;
+  align-items: center;
 }
 
 .header__button {
@@ -112,10 +113,32 @@
   transform: scale(1.05);
 }
 
+.header-profile-avatar{
+  min-width: clamp(1.875rem, 1.6898rem + 0.9259vw, 2.5rem); /* 40px > 30px */
+  max-width: clamp(1.875rem, 1.6898rem + 0.9259vw, 2.5rem); /* 40px > 30px */
+  width: clamp(1.875rem, 1.6898rem + 0.9259vw, 2.5rem);
+  min-height: clamp(1.875rem, 1.6898rem + 0.9259vw, 2.5rem);
+  max-height: clamp(1.875rem, 1.6898rem + 0.9259vw, 2.5rem);
+  height: clamp(1.875rem, 1.6898rem + 0.9259vw, 2.5rem);
+  border-radius: 50%;
+  margin-top: clamp(0.125rem, 0.0694rem + 0.2778vw, 0.3125rem); /* 5px > 2px */
+  outline-offset: 1px;
+  outline: clamp(0.125rem, 0.1065rem + 0.0926vw, 0.1875rem) solid rgb(8, 238, 20); /* 3px > 2px */
+  transition: transform 0.2s ease;
+}
+
+.header-profile-avatar:hover {
+  transform: scale(1.05);
+}
+
+.header-profile-avatar:active{
+  transform: scale(0.98);
+}
+
 .button-cart{
   background-image: url(../../../public/assets/img/svg/cart.svg);
   margin-right: 10px;
-  margin-left: 15px;
+  margin-left: clamp(0.625rem, 0.5324rem + 0.463vw, 0.9375rem); /* 15px > 10px */
 }
 
 .cart-value {
