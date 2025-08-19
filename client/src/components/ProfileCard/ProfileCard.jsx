@@ -19,6 +19,13 @@ const ProfileCard = observer(() => {
     const [isCorrectPhoneValue, setIsCorrectPhoneValue] = useState(true);
     const [userImage, setUserImage] = useState("");
 
+    let image = new Image();
+        image.onload = function(){
+            console.log('image.png is loaded');
+        }
+        
+    image.src = process.env.REACT_APP_API_URL + user.user.image;
+
     const updateUser = async (id, userName, userTel, userImage) => {
         const formData = new FormData();
         formData.append('id', id);
