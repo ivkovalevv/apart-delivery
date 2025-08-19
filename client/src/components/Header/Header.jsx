@@ -13,7 +13,14 @@ const Header = observer(() => {
   const { user } = useContext(Context);
   const [burgerState, setBurgerState] = useState(false);
 
-  const [isModalOpened, setIsModalOpened] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  let image = new Image();
+  image.onload = function(){
+      setImageLoaded(true);
+  }
+      
+  image.src = process.env.REACT_APP_API_URL + user.user.image;
 
   let userCart = getUserCart(user, user.userCart);
 
@@ -74,7 +81,9 @@ const Header = observer(() => {
                 ></button>
               </NavLink> */}
               <NavLink to={PROFILE_ROUTE}>
-                <img src={process.env.REACT_APP_API_URL + user.user.image || "./assets/img/default-avatar.png"} alt="Аватар" className="header-profile-avatar"/>
+                {imageLoaded 
+                ? <img src={process.env.REACT_APP_API_URL + user.user.image} alt="Аватар" className="header-profile-avatar"/>
+                : <img src={"./assets/img/default-avatar.png"} alt="Аватар" className="header-profile-avatar"/>}
               </NavLink>
               <NavLink to={CART_ROUTE}>
                 <button

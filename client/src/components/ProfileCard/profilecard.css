@@ -14,8 +14,10 @@
 }
 
 .profile-card-avatar{
-    width: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
-    height: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
+    min-width: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
+    min-height: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
+    max-width: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
+    max-height: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
     margin-right: 15px;
     border-radius: 50%;
 }

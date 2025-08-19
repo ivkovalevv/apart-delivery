@@ -19,10 +19,12 @@ const ProfileCard = observer(() => {
     const [isCorrectPhoneValue, setIsCorrectPhoneValue] = useState(true);
     const [userImage, setUserImage] = useState("");
 
+    const [imageLoaded, setImageLoaded] = useState(false);
+
     let image = new Image();
-        image.onload = function(){
-            console.log('image.png is loaded');
-        }
+    image.onload = function(){
+        setImageLoaded(true);
+    }
         
     image.src = process.env.REACT_APP_API_URL + user.user.image;
 
@@ -70,7 +72,10 @@ const ProfileCard = observer(() => {
         <div className="profile-card">
             {isEditable 
             ? (<form className="profile-card-wrapper">
-                <div class="custom-file-upload" style={{backgroundImage: `url(${process.env.REACT_APP_API_URL + user.user.image})`}}>
+                <div class="custom-file-upload" 
+                    style={userImage 
+                        ? {backgroundImage: `url(${process.env.REACT_APP_API_URL + user.user.image})`} 
+                        : {backgroundImage: `url(./assets/img/default-avatar.png)`}}>
                     <label for="file" id="file-label">
                         {userImage? userImage.name : "Выбрать фото" }
                     </label>
@@ -98,7 +103,9 @@ const ProfileCard = observer(() => {
                </form>)
             : (
                 <div className="profile-card-wrapper">
-                    <img src={process.env.REACT_APP_API_URL + user.user.image || "./assets/img/default-avatar.png"} alt="Аватар" className="profile-card-avatar"/>
+                    {imageLoaded 
+                    ? <img src={process.env.REACT_APP_API_URL + user.user.image} alt="Аватар" className="profile-card-avatar"/>
+                    : <img src={"./assets/img/default-avatar.png"} alt="Аватар" className="profile-card-avatar"/>}
                     <div className="profile-card-info">
                         <h4 className="profile-card-name">{profileName}</h4>
                         <p className="profile-card-tel">{profileTel}</p>

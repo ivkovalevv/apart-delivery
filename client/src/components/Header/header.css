@@ -121,7 +121,7 @@
   max-height: clamp(1.875rem, 1.6898rem + 0.9259vw, 2.5rem);
   height: clamp(1.875rem, 1.6898rem + 0.9259vw, 2.5rem);
   border-radius: 50%;
-  margin-top: clamp(0.125rem, 0.0694rem + 0.2778vw, 0.3125rem); /* 5px > 2px */
+  margin-top: 2px;
   outline-offset: 1px;
   outline: clamp(0.125rem, 0.1065rem + 0.0926vw, 0.1875rem) solid rgb(8, 238, 20); /* 3px > 2px */
   transition: transform 0.2s ease;
