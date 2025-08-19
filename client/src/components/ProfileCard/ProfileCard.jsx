@@ -30,6 +30,7 @@ const ProfileCard = observer(() => {
           data = await update(formData);
           user.setUser(data);
           setIsEditable(false);
+          setUserImage(null);
         } catch (e) {
           alert(e.response.data.message);
         }
@@ -62,7 +63,12 @@ const ProfileCard = observer(() => {
         <div className="profile-card">
             {isEditable 
             ? (<form className="profile-card-wrapper">
-                <input type="file" onChange={(e) => setUserImage(e.target.files[0])}/>
+                <div class="custom-file-upload" style={{backgroundImage: `url(${process.env.REACT_APP_API_URL + user.user.image})`}}>
+                    <label for="file" id="file-label">
+                        {userImage? userImage.name : "Выбрать фото" }
+                    </label>
+                    <input type="file" id="file" className="photo-input" accept="image/png, image/jpeg, image/jpg" onChange={(e) => setUserImage(e.target.files[0])}/>
+                </div>
                 <div className="profile-card-info">
                     <NameInput
                         nameValue={profileName}
