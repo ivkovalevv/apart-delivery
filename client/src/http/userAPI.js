@@ -28,11 +28,12 @@ export const check = async () => {
   return jwtDecode(data.token);
 };
 
-export const update = async (id, userName, userTel) => {
+export const update = async (id, userName, userTel, image) => {
   const { data } = await $authHost.post("api/user/update", {
     id,
     userName,
     userTel,
+    image,
   });
   if(!data) return
 

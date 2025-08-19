@@ -85,7 +85,7 @@ class userController {
             let fileName = uuid.v4() + ".png";
             image.mv(path.resolve(__dirname, '..', 'static', fileName));
             
-            if (!userName && !userTel && !image) {
+            if (!userName && !userTel) {
                 return next(ApiError.badRequest('Не указаны данные для обновления'));
             }
             

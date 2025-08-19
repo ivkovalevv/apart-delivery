@@ -17,8 +17,9 @@ const ProfileCard = observer(() => {
     const [isValidName, setIsValidName] = useState(true);
     const [isValidPhoneValue, setIsValidPhoneValue] = useState(true);
     const [isCorrectPhoneValue, setIsCorrectPhoneValue] = useState(true);
+    const [userImage, setUserImage] = useState(null);
 
-    const updateUser = async (id, userName, userTel) => {
+    const updateUser = async (id, userName, userTel, userImage) => {
         try {
           let data;
           data = await update(id, userName.trim(), userTel);
@@ -46,45 +47,48 @@ const ProfileCard = observer(() => {
             profileTel !== "" &&
             profileTel.length === 13
         ) {
-            updateUser(user.user.id, profileName, profileTel)
+            updateUser(user.user.id, profileName, profileTel, userImage)
         }
     };
 
 
     return (
         <div className="profile-card">
-            <div className="profile-card-wrapper">
-                <img src={process.env.REACT_APP_API_URL + user.user.image || "./assets/img/default-avatar.png"} alt="Аватар" className="profile-card-avatar"/>
+            {isEditable 
+            ? (<form className="profile-card-wrapper">
+                <input type="file"/>
                 <div className="profile-card-info">
-                    {isEditable 
-                        ? (<NameInput
-                            nameValue={profileName}
-                            isValidName={isValidName}
-                            setIsValidName={setIsValidName}
-                            setNameValue={setProfileName}
-                        ></NameInput>)
-                        : (<h4 className="profile-card-name">{profileName}</h4>)
-                    }
-                    {isEditable 
-                        ? (<PhoneInput
-                            phoneValue={profileTel}
-                            isValidPhoneValue={isValidPhoneValue}
-                            setIsValidPhoneValue={setIsValidPhoneValue}
-                            isCorrectPhoneValue={isCorrectPhoneValue}
-                            setIsCorrectPhoneValue={setIsCorrectPhoneValue}
-                            setPhoneValue={setProfileTel}
-                           ></PhoneInput>)
-                        : (<p className="profile-card-tel">{profileTel}</p>)
-                    }
-                </div>
-                {isEditable 
-                    ? (<button className="profile-card-edit-button" onClick={() => {checkValidity()}}>
+                    <NameInput
+                        nameValue={profileName}
+                        isValidName={isValidName}
+                        setIsValidName={setIsValidName}
+                        setNameValue={setProfileName}
+                    ></NameInput>
+                    <PhoneInput
+                        phoneValue={profileTel}
+                        isValidPhoneValue={isValidPhoneValue}
+                        setIsValidPhoneValue={setIsValidPhoneValue}
+                        isCorrectPhoneValue={isCorrectPhoneValue}
+                        setIsCorrectPhoneValue={setIsCorrectPhoneValue}
+                        setPhoneValue={setProfileTel}
+                    ></PhoneInput>
+                    <button className="profile-card-edit-button" onClick={() => {checkValidity()}}>
                         <ConfirmSVG/>
-                      </button>)
-                    : (<button className="profile-card-edit-button" onClick={() => {setIsEditable(true)}}>
+                    </button>
+                </div>
+               </form>)
+            : (
+                <div className="profile-card-wrapper">
+                    <img src={process.env.REACT_APP_API_URL + user.user.image || "./assets/img/default-avatar.png"} alt="Аватар" className="profile-card-avatar"/>
+                    <div className="profile-card-info">
+                        <h4 className="profile-card-name">{profileName}</h4>
+                        <p className="profile-card-tel">{profileTel}</p>
+                    </div>
+                    <button className="profile-card-edit-button" onClick={() => {setIsEditable(true)}}>
                         <EditSVG/>
-                      </button>)}
-            </div>
+                      </button>
+                </div>
+            )}
         </div>
     )
 });
