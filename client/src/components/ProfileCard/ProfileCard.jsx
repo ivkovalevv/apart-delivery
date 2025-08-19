@@ -17,7 +17,7 @@ const ProfileCard = observer(() => {
     const [isValidName, setIsValidName] = useState(true);
     const [isValidPhoneValue, setIsValidPhoneValue] = useState(true);
     const [isCorrectPhoneValue, setIsCorrectPhoneValue] = useState(true);
-    const [userImage, setUserImage] = useState(null);
+    const [userImage, setUserImage] = useState("");
 
     const updateUser = async (id, userName, userTel, userImage) => {
         const formData = new FormData();

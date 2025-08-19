@@ -81,9 +81,14 @@ class userController {
     async update(req, res, next) {
         try {
             const { id, userName, userTel } = req.body;
-            const {image} = req.files;
-            let fileName = uuid.v4() + "-id-" + id + "-avatar.png";
-            image.mv(path.resolve(__dirname, '..', 'static', fileName));
+
+            let fileName = null;
+
+            if (req.files && req.files.image) {
+                const { image } = req.files;
+                fileName = uuid.v4() + "-id-" + id + "-avatar.png";
+                image.mv(path.resolve(__dirname, '..', 'static', fileName));
+            }
             
             if (!userName && !userTel) {
                 return next(ApiError.badRequest('Не указаны данные для обновления'));
@@ -96,7 +101,9 @@ class userController {
             
             if (userName) user.userName = userName;
             if (userTel) user.userTel = userTel;
-            if (image) user.image = fileName;
+            if (fileName) {
+                user.image = fileName;
+            }
             
             await user.save();
             
