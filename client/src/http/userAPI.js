@@ -28,13 +28,8 @@ export const check = async () => {
   return jwtDecode(data.token);
 };
 
-export const update = async (id, userName, userTel, image) => {
-  const { data } = await $authHost.post("api/user/update", {
-    id,
-    userName,
-    userTel,
-    image,
-  });
+export const update = async (formData) => {
+  const { data } = await $authHost.post("api/user/update", formData);
   if(!data) return
 
   localStorage.setItem("token", data.token);

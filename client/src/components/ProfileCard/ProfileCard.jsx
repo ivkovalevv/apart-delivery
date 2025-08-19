@@ -20,9 +20,14 @@ const ProfileCard = observer(() => {
     const [userImage, setUserImage] = useState(null);
 
     const updateUser = async (id, userName, userTel, userImage) => {
+        const formData = new FormData();
+        formData.append('id', id);
+        formData.append('userName', userName);
+        formData.append('userTel', userTel);
+        formData.append('image', userImage);
         try {
           let data;
-          data = await update(id, userName.trim(), userTel);
+          data = await update(formData);
           user.setUser(data);
           setIsEditable(false);
         } catch (e) {
@@ -31,8 +36,8 @@ const ProfileCard = observer(() => {
       };
     
 
-    const checkValidity = () => {
-        console.log(userImage)
+    const checkValidity = (e) => {
+        e.preventDefault();
         if (profileName.trim() === "" || profileName.length <= 2) {
             setIsValidName(false);
         }
@@ -73,7 +78,7 @@ const ProfileCard = observer(() => {
                         setIsCorrectPhoneValue={setIsCorrectPhoneValue}
                         setPhoneValue={setProfileTel}
                     ></PhoneInput>
-                    <button className="profile-card-edit-button" onClick={() => {checkValidity()}}>
+                    <button className="profile-card-edit-button" onClick={(e) => {checkValidity(e)}}>
                         <ConfirmSVG/>
                     </button>
                 </div>
