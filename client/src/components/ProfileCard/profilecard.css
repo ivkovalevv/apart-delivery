@@ -1,116 +1,128 @@
-.profile-card{
-    width: 30%;
-    height: clamp(6rem, 5.6296rem + 1.8519vw, 7.25rem);
-    padding: 10px;
-    border-radius: 20px;
-    background-color: #E0F1FF;
+.profile-card {
+  width: 30%;
+  height: clamp(6rem, 5.6296rem + 1.8519vw, 7.25rem);
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #e0f1ff;
 }
 
-.profile-card-wrapper{
-    position: relative;
-    display: flex;
-    align-items: center;
-    overflow: auto;
+.profile-card-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: auto;
 }
 
-.profile-card-avatar{
-    min-width: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
-    min-height: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
-    max-width: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
-    max-height: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
-    margin-right: 15px;
-    border-radius: 50%;
+.profile-card-avatar {
+  min-width: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
+  min-height: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
+  max-width: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
+  max-height: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
+  margin-right: 15px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-.profile-card-name{
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 5px;
+.profile-card-name {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 5px;
 }
 
-.profile-card-tel{
-    font-size: 16px;
-    font-weight: 400;
+.profile-card-tel {
+  font-size: 16px;
+  font-weight: 400;
 }
 
-.profile-card-edit-button{
-    position: absolute;
-    z-index: 2;
-    top: 0px;
-    right: 0px;
-    width: 30px;
-    height: 30px;
-    padding: 0px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    border-radius: 50%;
-    transition: background-color .2s ease, transform .2s ease;
+.profile-card-edit-button {
+  position: absolute;
+  z-index: 2;
+  top: 0px;
+  right: 0px;
+  width: 30px;
+  height: 30px;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.profile-card-edit-button:hover{
-    background-color: rgba(159, 191, 239, 1);
+.profile-card-edit-button:hover {
+  background-color: rgba(159, 191, 239, 1);
 }
 
-.profile-card-edit-button:active{
-    transform: scale(0.95);
+.profile-card-edit-button:active {
+  transform: scale(0.95);
 }
 
-.profile-card-info{
-    width: 100%;
+.profile-card-info {
+  width: 100%;
 }
 
-.profile-card-info * input{
+.profile-card-info * input {
   width: 80%;
   padding: 4px 4px;
 }
 
 .profile-card-info * label {
-    display: none;
+  display: none;
 }
 
-.profile-card-info * .invalid-message{
-    font-size: 10px;
+.profile-card-info * .invalid-message {
+  font-size: 10px;
 }
 
 .custom-file-upload {
-    display: inline-block;
-    position: relative;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    min-width: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
-    min-height: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
-    max-width: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
-    max-height: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
-    margin-right: 15px;
-    border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  min-width: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
+  min-height: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
+  max-width: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
+  max-height: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
+  margin-right: 15px;
+  border-radius: 50%;
 }
 
 .custom-file-upload label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
-    min-height: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
-    max-width: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
-    max-height: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
-    background: rgba(51, 51, 58, 0.815);
-    outline: 0;
-    border: 0;
-    width: 100%;
-    border-radius: 50%;
-    font-family: inherit;
-    cursor: pointer;
-    color: #FFF;
-    padding: 15px;
-    text-align: center;
-    font-size: clamp(0.75rem, 0.6944rem + 0.2778vw, 0.9375rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
+  min-height: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
+  max-width: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
+  max-height: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
+  background: rgba(51, 51, 58, 32%);
+  outline: 0;
+  border: 0;
+  width: 100%;
+  border-radius: 50%;
+  font-family: inherit;
+  cursor: pointer;
+  color: #fff;
+  padding: 2px;
+  text-align: center;
+  font-size: clamp(0.75rem, 0.6944rem + 0.2778vw, 0.9375rem);
 }
 
 .custom-file-upload input {
-    display: none;
+  display: none;
+}
+
+.file-label-text {
+  width: 100%;
+  height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgb(0, 0, 0), 0 0 1em rgb(0, 0, 0),
+    0 0 0.2em rgb(0, 0, 0);
 }

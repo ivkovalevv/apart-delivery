@@ -22,6 +22,7 @@ const ProfileCard = observer(() => {
   const [isValidPhoneValue, setIsValidPhoneValue] = useState(true);
   const [isCorrectPhoneValue, setIsCorrectPhoneValue] = useState(true);
   const [userImage, setUserImage] = useState("");
+  const [imagePreview, setImagePreview] = useState("");
 
   const [imageLoaded, setImageLoaded] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -46,6 +47,29 @@ const ProfileCard = observer(() => {
   };
 
   image.src = process.env.REACT_APP_API_URL + user.user.image;
+
+  function handleFiles(file) {
+    if (!file || !(file instanceof Blob)) {
+      return null;
+    }
+
+    let img = document.createElement("img");
+    img.file = file;
+
+    let reader = new FileReader();
+    reader.onload = (function (aImg) {
+      return function (e) {
+        aImg.src = e.target.result;
+        setImagePreview(e.target.result);
+      };
+    })(img);
+    reader.readAsDataURL(file);
+    return img;
+  }
+
+  useEffect(() => {
+    handleFiles(userImage);
+  }, [userImage]);
 
   const compressImage = async (file, maxWidth = 800, quality = 0.7) => {
     return new Promise((resolve) => {
@@ -149,24 +173,37 @@ const ProfileCard = observer(() => {
           <div
             class="custom-file-upload"
             style={
-              imageLoaded
+              imagePreview
                 ? {
+                    backgroundImage: `url(${imagePreview})`,
+                  }
+                : {
                     backgroundImage: `url(${
                       process.env.REACT_APP_API_URL + user.user.image
                     })`,
                   }
-                : { backgroundImage: `url(./assets/img/default-avatar.png)` }
             }
           >
             <label for="file" id="file-label">
-              {userImage ? userImage.name : "Выбрать фото"}
+              <p className="file-label-text">
+                {userImage ? (
+                  userImage.name
+                ) : (
+                  <p className="file-label-text">
+                    Выбрать
+                    <br /> фото
+                  </p>
+                )}
+              </p>
             </label>
             <input
               type="file"
               id="file"
               className="photo-input"
               accept="image/png, image/jpeg, image/jpg"
-              onChange={(e) => setUserImage(e.target.files[0])}
+              onChange={(e) => {
+                setUserImage(e.target.files[0]);
+              }}
             />
           </div>
           <div className="profile-card-info">

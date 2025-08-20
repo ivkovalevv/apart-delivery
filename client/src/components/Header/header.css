@@ -113,7 +113,7 @@
   transform: scale(1.05);
 }
 
-.header-profile-avatar{
+.header-profile-avatar {
   min-width: clamp(1.875rem, 1.6898rem + 0.9259vw, 2.5rem); /* 40px > 30px */
   max-width: clamp(1.875rem, 1.6898rem + 0.9259vw, 2.5rem); /* 40px > 30px */
   width: clamp(1.875rem, 1.6898rem + 0.9259vw, 2.5rem);
@@ -123,22 +123,28 @@
   border-radius: 50%;
   margin-top: 2px;
   outline-offset: 1px;
-  outline: clamp(0.125rem, 0.1065rem + 0.0926vw, 0.1875rem) solid rgb(8, 238, 20); /* 3px > 2px */
+  outline: clamp(0.125rem, 0.1065rem + 0.0926vw, 0.1875rem) solid
+    rgb(8, 238, 20); /* 3px > 2px */
   transition: transform 0.2s ease;
+  object-fit: cover;
 }
 
 .header-profile-avatar:hover {
   transform: scale(1.05);
 }
 
-.header-profile-avatar:active{
+.header-profile-avatar:active {
   transform: scale(0.98);
 }
 
-.button-cart{
+.button-cart {
   background-image: url(../../../public/assets/img/svg/cart.svg);
   margin-right: 10px;
-  margin-left: clamp(0.625rem, 0.5324rem + 0.463vw, 0.9375rem); /* 15px > 10px */
+  margin-left: clamp(
+    0.625rem,
+    0.5324rem + 0.463vw,
+    0.9375rem
+  ); /* 15px > 10px */
 }
 
 .cart-value {
