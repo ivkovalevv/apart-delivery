@@ -7,19 +7,37 @@ import NameInput from "../UI/NameInput/NameInput";
 import PhoneInput from "../UI/PhoneInput/PhoneInput";
 import { Context } from "../../index";
 import { update } from "../../http/userAPI";
+import Loader from "../../components/UI/Loader/Loader";
+import { check } from "../../http/userAPI";
 
 const ProfileCard = observer(() => {
     const { user } = useContext(Context);
     const [isEditable, setIsEditable] = useState(false);
 
     const [profileName, setProfileName] = useState(user.user.userName || 'Гость');
-    const [profileTel, setProfileTel] = useState(user.user.userTel || '+71235467890');
+    const [profileTel, setProfileTel] = useState(user.user.userTel || '+7 9999999999');
     const [isValidName, setIsValidName] = useState(true);
     const [isValidPhoneValue, setIsValidPhoneValue] = useState(true);
     const [isCorrectPhoneValue, setIsCorrectPhoneValue] = useState(true);
     const [userImage, setUserImage] = useState("");
 
     const [imageLoaded, setImageLoaded] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        check()
+          .then((data) => {
+            user.setUser(data);
+            user.setIsAuth(true);
+            user.setUserCart(data);
+          })
+          .catch((error) => {
+            if (error.response?.status !== 401) {
+              console.error('Check error:', error);
+            }
+          })
+          .finally(() => setLoading(false));
+      }, []);
 
     let image = new Image();
     image.onload = function(){
@@ -28,12 +46,58 @@ const ProfileCard = observer(() => {
         
     image.src = process.env.REACT_APP_API_URL + user.user.image;
 
+    const compressImage = async (file, maxWidth = 800, quality = 0.7) => {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+    
+                    // Изменяем размер, если нужно
+                    if (width > maxWidth) {
+                        height = (height * maxWidth) / width;
+                        width = maxWidth;
+                    }
+    
+                    canvas.width = width;
+                    canvas.height = height;
+    
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+    
+                    canvas.toBlob(
+                        (blob) => {
+                            resolve(new File([blob], file.name, {
+                                type: 'image/jpeg',
+                                lastModified: Date.now()
+                            }));
+                        },
+                        'image/jpeg',
+                        quality
+                    );
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    };
+
     const updateUser = async (id, userName, userTel, userImage) => {
+        let compressedImage;
+        if(userImage){
+            compressedImage = await compressImage(userImage)
+        } else {
+            compressedImage = userImage
+        };
+
         const formData = new FormData();
         formData.append('id', id);
         formData.append('userName', userName);
         formData.append('userTel', userTel);
-        formData.append('image', userImage);
+        formData.append('image', compressedImage);
         try {
           let data;
           data = await update(formData);
@@ -41,7 +105,11 @@ const ProfileCard = observer(() => {
           setIsEditable(false);
           setUserImage(null);
         } catch (e) {
-          alert(e.response.data.message);
+            const errorMessage = e.response?.data?.message 
+            || e.response?.data?.error 
+            || e.message 
+            || 'Произошла ошибка при загрузке';
+            alert(errorMessage);
         }
       };
     
@@ -67,17 +135,21 @@ const ProfileCard = observer(() => {
         }
     };
 
+    if (loading) {
+        return <Loader />;
+      }
+
 
     return (
         <div className="profile-card">
             {isEditable 
             ? (<form className="profile-card-wrapper">
                 <div class="custom-file-upload" 
-                    style={userImage 
+                    style={imageLoaded 
                         ? {backgroundImage: `url(${process.env.REACT_APP_API_URL + user.user.image})`} 
                         : {backgroundImage: `url(./assets/img/default-avatar.png)`}}>
                     <label for="file" id="file-label">
-                        {userImage? userImage.name : "Выбрать фото" }
+                        {userImage ? userImage.name : "Выбрать фото" }
                     </label>
                     <input type="file" id="file" className="photo-input" accept="image/png, image/jpeg, image/jpg" onChange={(e) => setUserImage(e.target.files[0])}/>
                 </div>

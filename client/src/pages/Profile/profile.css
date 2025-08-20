@@ -26,10 +26,13 @@
   margin-bottom: 17px;
 }
 
-.profile-active-order-heading,
-.empty-profile-active-order-heading,
+.profile-active-order-heading.empty-profile-active-order-heading,
 .full-profile-active-order-heading{
   font-size: clamp(1.125rem, 0.9615rem + 0.8177vw, 1.75rem) !important;
+}
+
+.profile-active-auth-heading{
+  margin-left: 15px;
 }
 
 .profile-active-order-heading-wrapper{
@@ -42,11 +45,10 @@
   align-items: center;
 }
 
-.profile-active-order-heading{
+.profile-active-auth-heading{
   font-weight: 600 !important;
   font-size: clamp(1rem, 0.9421rem + 0.2897vw, 1.375rem) !important;
   margin-bottom: 0px !important;
-  margin-left: 15px;
 }
 
 .profile__lists-wrapper {

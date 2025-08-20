@@ -98,7 +98,7 @@
     min-height: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
     max-width: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
     max-height: clamp(4.75rem, 4.3796rem + 1.8519vw, 6rem);
-    background: rgba(62, 62, 75, 0.705);
+    background: rgba(51, 51, 58, 0.815);
     outline: 0;
     border: 0;
     width: 100%;
@@ -108,7 +108,7 @@
     color: #FFF;
     padding: 15px;
     text-align: center;
-    font-size: clamp(0.625rem, 0.5509rem + 0.3704vw, 0.875rem);
+    font-size: clamp(0.75rem, 0.6944rem + 0.2778vw, 0.9375rem);
 }
 
 .custom-file-upload input {

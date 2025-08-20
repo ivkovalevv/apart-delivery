@@ -40,11 +40,16 @@ export default class UserStore {
   }
 
   setUserCart(data) {
-    let personalCart = {
-      id: data.id,
-      cart: [],
-    }
+    let personalCart;
+
+    const cartData = localStorage.getItem("userCart");
+    personalCart = cartData
+      ? JSON.parse(cartData)[0]
+      : { id: data.id, cart: [] };
+
     this._userCart.push(personalCart);
+
+    localStorage.setItem("userCart", JSON.stringify(this._userCart));
   }
 
   get userCart() {
@@ -52,33 +57,41 @@ export default class UserStore {
   }
 
   addToCart(userId, productId) {
-    let userIndex = this._userCart.findIndex(item => item.id === userId);
+    let userIndex = this._userCart.findIndex((item) => item.id === userId);
     const userCart = this._userCart[userIndex];
     userCart.cart.push({ id: productId, quantity: 1 });
+
+    localStorage.setItem("userCart", JSON.stringify(this._userCart));
   }
 
   removeFromCart(userId, productId) {
-    let userIndex = this._userCart.findIndex(item => item.id === userId);
+    let userIndex = this._userCart.findIndex((item) => item.id === userId);
     const userCart = this._userCart[userIndex];
 
     userCart.cart = userCart.cart.filter((item) => item.id !== productId);
+
+    localStorage.setItem("userCart", JSON.stringify(this._userCart));
   }
 
   clearCart(userId) {
-    let userIndex = this._userCart.findIndex(item => item.id === userId);
+    let userIndex = this._userCart.findIndex((item) => item.id === userId);
     const userCart = this._userCart[userIndex];
 
     userCart.cart.splice(0, userCart.cart.length);
+
+    localStorage.setItem("userCart", JSON.stringify(this._userCart));
   }
 
   updateQuantity(userId, productId, newQuantity) {
-    let userIndex = this._userCart.findIndex(item => item.id === userId);
+    let userIndex = this._userCart.findIndex((item) => item.id === userId);
     const userCart = this._userCart[userIndex];
-    
+
     const product = userCart.cart.find((item) => item.id === productId);
     if (product) {
       product.quantity = newQuantity;
     }
+
+    localStorage.setItem("userCart", JSON.stringify(this._userCart));
   }
 
   setUserOrderList(userOrderList) {
@@ -98,10 +111,10 @@ export default class UserStore {
   }
 
   addUserOrder(userId, userOrder) {
-    let userIndex = this._userOrders.findIndex(item => item.id === userId);
+    let userIndex = this._userOrders.findIndex((item) => item.id === userId);
     const userOrders = this._userOrders[userIndex];
 
-    if(userOrders){
+    if (userOrders) {
       userOrders.orders.push(userOrder);
     } else {
       this._userOrders.push({
@@ -112,7 +125,7 @@ export default class UserStore {
   }
 
   updateStatus(userId, orderId, newStatus) {
-    let userIndex = this._userOrders.findIndex(item => item.id === userId);
+    let userIndex = this._userOrders.findIndex((item) => item.id === userId);
     const userOrders = this._userOrders[userIndex];
 
     const order = userOrders.orders.find((order) => order.id === orderId);

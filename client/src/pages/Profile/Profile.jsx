@@ -108,7 +108,7 @@ const Profile = observer(() => {
             <ProfileCard/>
             <div className="profile-active-order-heading-wrapper">
               <MailSVG/>
-              <h3 className="section-heading profile-active-order-heading">{`Вы успешно авторизованы под ${user.user.email}!`}</h3>
+              <h3 className="section-heading profile-active-auth-heading">{`Вы успешно авторизованы под ${user.user.email}!`}</h3>
             </div>
           </div>
             <div className="profile__active-order">
@@ -288,7 +288,7 @@ const Profile = observer(() => {
             <ProfileCard/>
             <div className="profile-active-order-heading-wrapper">
               <MailSVG/>
-              <h3 className="section-heading profile-active-order-heading">{`Вы успешно авторизованы под ${user.user.email}!`}</h3>
+              <h3 className="section-heading profile-active-auth-heading">{`Вы успешно авторизованы под ${user.user.email}!`}</h3>
             </div>
           </div>
         )}
