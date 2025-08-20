@@ -40,16 +40,22 @@ export default class UserStore {
   }
 
   setUserCart(data) {
-    let personalCart;
+    const storedCarts = localStorage.getItem(`userCart-${data.id}`);
+    let allCarts = storedCarts ? JSON.parse(storedCarts) : [];
 
-    const cartData = localStorage.getItem("userCart");
-    personalCart = cartData
-      ? JSON.parse(cartData)[0]
-      : { id: data.id, cart: [] };
+    const existingCartIndex = allCarts.findIndex((cart) => cart.id === data.id);
 
-    this._userCart.push(personalCart);
+    if (existingCartIndex !== -1) {
+      allCarts[existingCartIndex] = {
+        id: data.id,
+        cart: data.cart || allCarts[existingCartIndex].cart,
+      };
+    } else {
+      allCarts.push({ id: data.id, cart: data.cart || [] });
+    }
 
-    localStorage.setItem("userCart", JSON.stringify(this._userCart));
+    this._userCart = allCarts;
+    localStorage.setItem(`userCart-${data.id}`, JSON.stringify(allCarts));
   }
 
   get userCart() {
@@ -61,7 +67,7 @@ export default class UserStore {
     const userCart = this._userCart[userIndex];
     userCart.cart.push({ id: productId, quantity: 1 });
 
-    localStorage.setItem("userCart", JSON.stringify(this._userCart));
+    localStorage.setItem(`userCart-${userId}`, JSON.stringify(this._userCart));
   }
 
   removeFromCart(userId, productId) {
@@ -70,7 +76,7 @@ export default class UserStore {
 
     userCart.cart = userCart.cart.filter((item) => item.id !== productId);
 
-    localStorage.setItem("userCart", JSON.stringify(this._userCart));
+    localStorage.setItem(`userCart-${userId}`, JSON.stringify(this._userCart));
   }
 
   clearCart(userId) {
@@ -79,7 +85,7 @@ export default class UserStore {
 
     userCart.cart.splice(0, userCart.cart.length);
 
-    localStorage.setItem("userCart", JSON.stringify(this._userCart));
+    localStorage.setItem(`userCart-${userId}`, JSON.stringify(this._userCart));
   }
 
   updateQuantity(userId, productId, newQuantity) {
@@ -91,7 +97,7 @@ export default class UserStore {
       product.quantity = newQuantity;
     }
 
-    localStorage.setItem("userCart", JSON.stringify(this._userCart));
+    localStorage.setItem(`userCart-${userId}`, JSON.stringify(this._userCart));
   }
 
   setUserOrderList(userOrderList) {
