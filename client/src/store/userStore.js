@@ -50,6 +50,8 @@ export default class UserStore {
     this._userCart.push(personalCart);
 
     localStorage.setItem("userCart", JSON.stringify(this._userCart));
+
+    console.log("shiiiiit");
   }
 
   get userCart() {
