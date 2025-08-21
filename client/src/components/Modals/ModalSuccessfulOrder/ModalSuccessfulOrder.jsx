@@ -4,14 +4,13 @@ import { createPortal } from "react-dom";
 import "./modalsuccessfulorder.css";
 import { observer } from "mobx-react-lite";
 import SuccessSVG from "../../SVG/SuccessSVG";
-import { getUserOrders } from "../../../utils/functions";
 
 const ModalSuccessfulOrder = observer((props) => {
   const { user } = useContext(Context);
-  const node = document.getElementById('modal-root');
+  const node = document.getElementById("modal-root");
   if (!node) return null;
 
-  const userOrders = getUserOrders(user, user.userOrders);
+  const userOrders = user.userOrders;
 
   function closeModal(e) {
     e.stopPropagation();
@@ -20,9 +19,7 @@ const ModalSuccessfulOrder = observer((props) => {
   }
 
   return createPortal(
-    <div
-      className={"modal modal-open"}
-    >
+    <div className={"modal modal-open"}>
       <div className="modal-wrapper">
         <div className="modal-button-close-wrapper">
           <button className="modal-button-close" onClick={(e) => closeModal(e)}>
@@ -38,18 +35,16 @@ const ModalSuccessfulOrder = observer((props) => {
           <p className="modal-content-heading">В вашем заказе:</p>
           <ul className="modal-order-list">
             {userOrders.length > 0
-              ? userOrders[userOrders.length - 1].orderList.map(
-                  (orderItem) => {
-                    return (
-                      <li className="modal-order-item" key={orderItem.price}>
-                        <p className="modal-content-description">
-                          {orderItem.name}
-                        </p>
-                        <p className="modal-content-description">{`x ${orderItem.quantity}`}</p>
-                      </li>
-                    );
-                  }
-                )
+              ? userOrders[userOrders.length - 1].orderList.map((orderItem) => {
+                  return (
+                    <li className="modal-order-item" key={orderItem.price}>
+                      <p className="modal-content-description">
+                        {orderItem.name}
+                      </p>
+                      <p className="modal-content-description">{`x ${orderItem.quantity}`}</p>
+                    </li>
+                  );
+                })
               : null}
           </ul>
           <div className="modal-order-item">

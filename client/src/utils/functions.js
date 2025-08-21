@@ -15,7 +15,7 @@ export const generateRandomNumber = () => {
 
 export const activeIntervals = {};
 
-export function getRelevantProducts(title, menuItem, userCart){
+export function getRelevantProducts(title, menuItem, userCart) {
   const category = menuItem.types.find((item) => item.name === title);
 
   const products = menuItem.menuItems.rows.filter(
@@ -32,21 +32,22 @@ export function getRelevantProducts(title, menuItem, userCart){
     return {
       ...item,
       inCart: isInCart,
-      quantity: cartItemsQuantityMap[item.id]
+      quantity: cartItemsQuantityMap[item.id],
     };
   });
 
   return relevantProducts;
-};
+}
 
 export function getUserCart(user, userCart) {
   const userId = user.user.id;
-  const userCartData = userCart.find(item => item.id === userId);
+  const userCartData = userCart.find((item) => item.id === userId);
   return userCartData ? userCartData.cart : [];
 }
 
+/* Рудимент */
 export function getUserOrders(user, userOrders) {
   const userId = user.user.id;
-  const userOrdersData = userOrders.find(item => item.id === userId);
+  const userOrdersData = userOrders.find((item) => item.id === userId);
   return userOrdersData ? userOrdersData.orders : [];
 }

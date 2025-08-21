@@ -22,20 +22,20 @@ const App = observer(() => {
         user.setUser(data);
         user.setIsAuth(true);
         user.setUserCart(data);
+        user.setUserOrders(JSON.parse(data.ordersHistory) || []);
       })
       .catch((error) => {
         if (error.response?.status !== 401) {
-          console.error('Check error:', error);
+          console.error("Check error:", error);
         }
       })
       .finally(() => setLoading(false));
 
-      fetchMenuItems()
-      .then((data) => {
-        menuItem.setMenuItems(data);
-      })
+    fetchMenuItems().then((data) => {
+      menuItem.setMenuItems(data);
+    });
 
-      fetchTypes()
+    fetchTypes()
       .then((data) => {
         menuItem.setTypes(data);
       })
@@ -54,11 +54,10 @@ const App = observer(() => {
       <div className="container base-container">
         <div className="main-content">
           <Navbar className="main-menu-list"></Navbar>
-           <AppRouter/>
+          <AppRouter />
         </div>
-        <Signature/>
+        <Signature />
       </div>
-      
     </BrowserRouter>
   );
 });

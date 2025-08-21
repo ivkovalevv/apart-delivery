@@ -116,25 +116,12 @@ export default class UserStore {
     return this._userOrders;
   }
 
-  addUserOrder(userId, userOrder) {
-    let userIndex = this._userOrders.findIndex((item) => item.id === userId);
-    const userOrders = this._userOrders[userIndex];
-
-    if (userOrders) {
-      userOrders.orders.push(userOrder);
-    } else {
-      this._userOrders.push({
-        id: userId,
-        orders: [userOrder],
-      });
-    }
+  addUserOrder(userOrder) {
+    this._userOrders.push(userOrder);
   }
 
-  updateStatus(userId, orderId, newStatus) {
-    let userIndex = this._userOrders.findIndex((item) => item.id === userId);
-    const userOrders = this._userOrders[userIndex];
-
-    const order = userOrders.orders.find((order) => order.id === orderId);
+  updateStatus(orderId, newStatus) {
+    const order = this._userOrders.find((order) => order.id === orderId);
     if (order) {
       order.status = newStatus;
     }

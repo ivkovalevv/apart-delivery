@@ -12,6 +12,7 @@ import { generateRandomNumber, getUserOrders } from "../../utils/functions";
 import ModalSuccessfulOrder from "../Modals/ModalSuccessfulOrder/ModalSuccessfulOrder";
 import ModalConfirm from "../Modals/ModalConfirm/ModalConfirm";
 import { sendMessageTG } from "../../utils/message";
+import { setOrdersHistory } from "../../http/userAPI";
 
 const CartForm = observer(() => {
   const { user } = useContext(Context);
@@ -47,8 +48,8 @@ const CartForm = observer(() => {
     description: `Вы оформляете заказ на доставку по адресу "улица Счастья, д. 23, кв. 2000" на сумму ${
       isPromoActivated ? 0 : fullCartPrice()
     } ₽. Если всё верно, нажмите на кнопку ниже.`,
-    function: () => {
-      user.addUserOrder(user.user.id, {
+    function: async () => {
+      user.addUserOrder({
         id: generateRandomNumber(),
         date: new Date().toLocaleDateString("ru-RU", {
           hour: "numeric",
@@ -56,12 +57,34 @@ const CartForm = observer(() => {
           second: "numeric",
         }),
         name: nameValue,
-        phone: phoneValue.split(" ").join(''),
+        phone: phoneValue.split(" ").join(""),
         comment: textareaValue,
-        orderList: user.userOrderList,
+        orderList: user.userOrderList.map((order) => {
+          return {
+            name: order.name,
+            price: order.price,
+            quantity: order.quantity,
+          };
+        }),
         fullPrice: isPromoActivated ? 0 : fullCartPrice(),
         status: "Принят",
       });
+
+      try {
+        let data;
+        data = await setOrdersHistory(
+          user.user.id,
+          JSON.stringify(user.userOrders)
+        );
+        user.setUser(data);
+      } catch (e) {
+        const errorMessage =
+          e.response?.data?.message ||
+          e.response?.data?.error ||
+          e.message ||
+          "Произошла ошибка при загрузке";
+        alert(errorMessage);
+      }
 
       setNameValue("");
       setPhoneValue("");
@@ -74,7 +97,14 @@ const CartForm = observer(() => {
       setIsModalOpened(true);
       setIsModalConfirmOpened(false);
 
-      sendMessageTG(getUserOrders(user, user.userOrders), nameValue, phoneValue.split(" ").join(''), textareaValue, user.userOrderList, isPromoActivated ? 0 : fullCartPrice());
+      sendMessageTG(
+        user.userOrders,
+        nameValue,
+        phoneValue.split(" ").join(""),
+        textareaValue,
+        user.userOrderList,
+        isPromoActivated ? 0 : fullCartPrice()
+      );
     },
     buttons: 1,
     buttonTitle: "Оформить заказ",
@@ -83,7 +113,7 @@ const CartForm = observer(() => {
   const confirmRedirect = () => {
     user.clearCart(user.user.id);
     navigate("/profile", { replace: true });
-  }
+  };
 
   const checkValidity = () => {
     if (nameValue.trim() === "" || nameValue.length < 2) {
@@ -168,23 +198,23 @@ const CartForm = observer(() => {
         </form>
       </div>
 
-      {isModalOpened 
-        ? <ModalSuccessfulOrder 
-            handler={setIsModalOpened}
-            confirmRedirect={confirmRedirect}
-          /> 
-        : null}
+      {isModalOpened ? (
+        <ModalSuccessfulOrder
+          handler={setIsModalOpened}
+          confirmRedirect={confirmRedirect}
+        />
+      ) : null}
 
-      {isModalConfirmOpened 
-        ? <ModalConfirm 
-            handler={setIsModalConfirmOpened}
-            title={modalConfirmOptions.title}
-            description={modalConfirmOptions.description}
-            function={modalConfirmOptions.function}
-            buttons={modalConfirmOptions.buttons}
-            buttonTitle={modalConfirmOptions.buttonTitle}
-          /> 
-        : null}
+      {isModalConfirmOpened ? (
+        <ModalConfirm
+          handler={setIsModalConfirmOpened}
+          title={modalConfirmOptions.title}
+          description={modalConfirmOptions.description}
+          function={modalConfirmOptions.function}
+          buttons={modalConfirmOptions.buttons}
+          buttonTitle={modalConfirmOptions.buttonTitle}
+        />
+      ) : null}
     </div>
   );
 });

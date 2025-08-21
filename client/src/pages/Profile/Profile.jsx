@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../index";
 import Schedule from "../../components/Schedule/Schedule";
@@ -6,16 +6,17 @@ import Footer from "../../components/Footer/Footer";
 import Menu from "../../components/Menu/Menu";
 import { observer } from "mobx-react-lite";
 import "./profile.css";
-import { activeIntervals, getUserOrders } from "../../utils/functions";
+import { activeIntervals } from "../../utils/functions";
 import ModalConfirm from "../../components/Modals/ModalConfirm/ModalConfirm";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import MailSVG from "../../components/SVG/MailSVG";
+import { setOrdersHistory } from "../../http/userAPI";
 
 const Profile = observer(() => {
   const { user } = useContext(Context);
   const navigate = useNavigate();
 
-  const userOrders = getUserOrders(user, user.userOrders);
+  const userOrders = user.userOrders;
 
   const [isModalConfirmOpened, setIsModalConfirmOpened] = useState(false);
 
@@ -37,7 +38,7 @@ const Profile = observer(() => {
     setIsModalConfirmOpened(true);
   }
 
-  if (userOrders.length > 0) {
+  if (userOrders) {
     const statusFlow = ["Принят", "Готовится", "В пути", "Доставлен"];
 
     userOrders.map((order) => {
@@ -52,13 +53,29 @@ const Profile = observer(() => {
       }
 
       if (order.status === "Принят") {
-        setTimeout(() => {
-          user.updateStatus(user.user.id, order.id, "Готовится");
+        setTimeout(async () => {
+          user.updateStatus(order.id, "Готовится");
+
+          try {
+            let data;
+            data = await setOrdersHistory(
+              user.user.id,
+              JSON.stringify(user.userOrders)
+            );
+            user.setUser(data);
+          } catch (e) {
+            const errorMessage =
+              e.response?.data?.message ||
+              e.response?.data?.error ||
+              e.message ||
+              "Произошла ошибка при загрузке";
+            alert(errorMessage);
+          }
         }, timeInterval);
         return;
       }
 
-      activeIntervals[order.id] = setInterval(() => {
+      activeIntervals[order.id] = setInterval(async () => {
         const newStatus = () => {
           const currentIndex = statusFlow.indexOf(order.status);
 
@@ -70,7 +87,23 @@ const Profile = observer(() => {
           return statusFlow[currentIndex + 1];
         };
 
-        user.updateStatus(user.user.id, order.id, newStatus());
+        user.updateStatus(order.id, newStatus());
+
+        try {
+          let data;
+          data = await setOrdersHistory(
+            user.user.id,
+            JSON.stringify(user.userOrders)
+          );
+          user.setUser(data);
+        } catch (e) {
+          const errorMessage =
+            e.response?.data?.message ||
+            e.response?.data?.error ||
+            e.message ||
+            "Произошла ошибка при загрузке";
+          alert(errorMessage);
+        }
       }, timeInterval);
 
       // Очистка интервала при размонтировании компонента
@@ -80,15 +113,15 @@ const Profile = observer(() => {
 
   return (
     <div className="main-container">
-      {isModalConfirmOpened 
-        ? <ModalConfirm 
-            handler={setIsModalConfirmOpened}
-            title={modalConfirmOptions.title}
-            description={modalConfirmOptions.description}
-            function={modalConfirmOptions.function}
-            buttons={modalConfirmOptions.buttons}
-          /> 
-        : null}
+      {isModalConfirmOpened ? (
+        <ModalConfirm
+          handler={setIsModalConfirmOpened}
+          title={modalConfirmOptions.title}
+          description={modalConfirmOptions.description}
+          function={modalConfirmOptions.function}
+          buttons={modalConfirmOptions.buttons}
+        />
+      ) : null}
 
       <div className="main-container-padding">
         <div className="profile-flex-wrapper">
@@ -102,15 +135,15 @@ const Profile = observer(() => {
             Выйти
           </button>
         </div>
-        {userOrders.length > 0 ? (
+        {userOrders ? (
           <div className="profile__content">
             <div className="auth-success-wrapper">
-            <ProfileCard/>
-            <div className="profile-active-order-heading-wrapper">
-              <MailSVG/>
-              <h3 className="section-heading profile-active-auth-heading">{`Вы успешно авторизованы под ${user.user.email}!`}</h3>
+              <ProfileCard />
+              <div className="profile-active-order-heading-wrapper">
+                <MailSVG />
+                <h3 className="section-heading profile-active-auth-heading">{`Вы успешно авторизованы под ${user.user.email}!`}</h3>
+              </div>
             </div>
-          </div>
             <div className="profile__active-order">
               <div className="active-order-track">
                 <ul className="active-order-track-circles">
@@ -122,10 +155,8 @@ const Profile = observer(() => {
                       className={
                         userOrders[userOrders.length - 1].status ===
                           "Готовится" ||
-                        userOrders[userOrders.length - 1].status ===
-                          "В пути" ||
-                        userOrders[userOrders.length - 1].status ===
-                          "Доставлен"
+                        userOrders[userOrders.length - 1].status === "В пути" ||
+                        userOrders[userOrders.length - 1].status === "Доставлен"
                           ? "track-circles-item-circle track-circles-item-2 track-circles-item-active"
                           : "track-circles-item-circle track-circles-item-2"
                       }
@@ -134,10 +165,8 @@ const Profile = observer(() => {
                   <li className="track-circles-item">
                     <div
                       className={
-                        userOrders[userOrders.length - 1].status ===
-                          "В пути" ||
-                        userOrders[userOrders.length - 1].status ===
-                          "Доставлен"
+                        userOrders[userOrders.length - 1].status === "В пути" ||
+                        userOrders[userOrders.length - 1].status === "Доставлен"
                           ? "track-circles-item-circle track-circles-item-3 track-circles-item-active"
                           : "track-circles-item-circle track-circles-item-3"
                       }
@@ -146,8 +175,7 @@ const Profile = observer(() => {
                   <li className="track-circles-item">
                     <div
                       className={
-                        userOrders[userOrders.length - 1].status ===
-                        "Доставлен"
+                        userOrders[userOrders.length - 1].status === "Доставлен"
                           ? "track-circles-item-circle track-circles-item-4 track-circles-item-active"
                           : "track-circles-item-circle track-circles-item-4"
                       }
@@ -155,14 +183,12 @@ const Profile = observer(() => {
                   </li>
                   <li
                     className={
-                      userOrders[userOrders.length - 1].status ===
-                      "Принят"
+                      userOrders[userOrders.length - 1].status === "Принят"
                         ? "track-item-line track-item-line-1"
                         : userOrders[userOrders.length - 1].status ===
                           "Готовится"
                         ? "track-item-line track-item-line-2"
-                        : userOrders[userOrders.length - 1].status ===
-                          "В пути"
+                        : userOrders[userOrders.length - 1].status === "В пути"
                         ? "track-item-line track-item-line-3"
                         : userOrders[userOrders.length - 1].status ===
                           "Доставлен"
@@ -173,18 +199,13 @@ const Profile = observer(() => {
                 </ul>
               </div>
               <h2 className="section-heading profile-active-order-heading">
-                {userOrders[userOrders.length - 1].status ===
-                "Доставлен"
+                {userOrders[userOrders.length - 1].status === "Доставлен"
                   ? `Ваш последний заказ № ${
                       userOrders[userOrders.length - 1].id
                     } от ${
-                      userOrders[userOrders.length - 1].date.split(
-                        ","
-                      )[0]
+                      userOrders[userOrders.length - 1].date.split(",")[0]
                     }`
-                  : `Активный заказ № ${
-                      userOrders[userOrders.length - 1].id
-                    }`}
+                  : `Активный заказ № ${userOrders[userOrders.length - 1].id}`}
               </h2>
               <div className="profile__lists-wrapper">
                 <ul className="profile__data-list">
@@ -207,7 +228,7 @@ const Profile = observer(() => {
                       Адрес доставки:
                     </p>
                     <p className="profile-item-description text-align-right">
-                      улица Счастья, д. 23, кв. 2000
+                      ул. Счастья, д. 23, кв. 2000
                     </p>
                   </li>
                   <li className="profile-data-item">
@@ -218,20 +239,18 @@ const Profile = observer(() => {
                   </li>
                 </ul>
                 <ul className="profile__order-list">
-                  {userOrders[userOrders.length - 1].orderList.map(
-                    (item) => {
-                      return (
-                        <li className="profile-list-item" key={item.price}>
-                          <p className="profile-item-description text-bold">
-                            {item.name}
-                          </p>
-                          <p className="profile-item-description">
-                            {`${item.quantity} x ${item.price} ₽`}
-                          </p>
-                        </li>
-                      );
-                    }
-                  )}
+                  {userOrders[userOrders.length - 1].orderList.map((item) => {
+                    return (
+                      <li className="profile-list-item" key={item.price}>
+                        <p className="profile-item-description text-bold">
+                          {item.name}
+                        </p>
+                        <p className="profile-item-description">
+                          {`${item.quantity} x ${item.price} ₽`}
+                        </p>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
               <div className="profile__lists-wrapper profile-border">
@@ -246,9 +265,7 @@ const Profile = observer(() => {
                     Итого к оплате:
                   </p>
                   <p className="profile-item-description text-bold">
-                    {`${
-                      userOrders[userOrders.length - 1].fullPrice
-                    } ₽`}
+                    {`${userOrders[userOrders.length - 1].fullPrice} ₽`}
                   </p>
                 </div>
               </div>
@@ -275,7 +292,7 @@ const Profile = observer(() => {
                       <p className="orders-history-item">{`${order.fullPrice} ₽`}</p>
                       <p className="orders-history-item">{order.status}</p>
                       <p className="orders-history-item history-item-adress">
-                        улица Счастья, д. 23, кв. 2000
+                        ул. Счастья, д. 23, кв. 2000
                       </p>
                     </li>
                   );
@@ -285,9 +302,9 @@ const Profile = observer(() => {
           </div>
         ) : (
           <div className="auth-success-wrapper">
-            <ProfileCard/>
+            <ProfileCard />
             <div className="profile-active-order-heading-wrapper">
-              <MailSVG/>
+              <MailSVG />
               <h3 className="section-heading profile-active-auth-heading">{`Вы успешно авторизованы под ${user.user.email}!`}</h3>
             </div>
           </div>
@@ -295,7 +312,7 @@ const Profile = observer(() => {
       </div>
       <div className="main-container-padding main-menu-container-padding">
         <h2 className="section-heading section__popular-heading">
-          {userOrders.length > 0
+          {userOrders
             ? "Может попробуем что-то новенькое?"
             : "Попробуем кулинарные шедевры?"}
         </h2>
