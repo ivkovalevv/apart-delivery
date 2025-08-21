@@ -17,7 +17,6 @@ import Loader from "../../components/UI/Loader/Loader";
 const Profile = observer(() => {
   const { user } = useContext(Context);
   const navigate = useNavigate();
-  const userOrders = user.userOrders;
   const [isModalConfirmOpened, setIsModalConfirmOpened] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -50,11 +49,13 @@ const Profile = observer(() => {
     buttons: 2,
   };
 
+  const userOrders = user.userOrders;
+
   function exit() {
     setIsModalConfirmOpened(true);
   }
 
-  if (userOrders) {
+  if (userOrders.length > 0) {
     const statusFlow = ["Принят", "Готовится", "В пути", "Доставлен"];
 
     userOrders.map((order) => {
@@ -85,7 +86,7 @@ const Profile = observer(() => {
               e.response?.data?.error ||
               e.message ||
               "Произошла ошибка при загрузке";
-            alert(errorMessage);
+            console.log(errorMessage);
           }
         }, timeInterval);
         return;
@@ -118,7 +119,7 @@ const Profile = observer(() => {
             e.response?.data?.error ||
             e.message ||
             "Произошла ошибка при загрузке";
-          alert(errorMessage);
+          console.log(errorMessage);
         }
       }, timeInterval);
 
@@ -155,7 +156,7 @@ const Profile = observer(() => {
             Выйти
           </button>
         </div>
-        {userOrders ? (
+        {userOrders.length > 0 ? (
           <div className="profile__content">
             <div className="auth-success-wrapper">
               <ProfileCard />
@@ -332,7 +333,7 @@ const Profile = observer(() => {
       </div>
       <div className="main-container-padding main-menu-container-padding">
         <h2 className="section-heading section__popular-heading">
-          {userOrders
+          {userOrders.length > 0
             ? "Может попробуем что-то новенькое?"
             : "Попробуем кулинарные шедевры?"}
         </h2>
