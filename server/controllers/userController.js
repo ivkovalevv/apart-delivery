@@ -5,9 +5,17 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { User, Cart } = require("../models/models");
 
-const generateJwt = (id, email, role, userName, userTel, image) => {
+const generateJwt = (
+  id,
+  email,
+  role,
+  userName,
+  userTel,
+  image,
+  ordersHistory
+) => {
   return jwt.sign(
-    { id, email, role, userName, userTel, image },
+    { id, email, role, userName, userTel, image, ordersHistory },
     process.env.SECRET_KEY,
     { expiresIn: "24h" }
   );
@@ -33,7 +41,8 @@ class userController {
         user.email,
         user.role,
         user.userName,
-        user.userTel
+        user.userTel,
+        user.ordersHistory
       );
 
       return res.json({ token });
@@ -83,7 +92,8 @@ class userController {
       user.role,
       user.userName,
       user.userTel,
-      user.image
+      user.image,
+      user.ordersHistory
     );
 
     return res.json({ token });
@@ -97,7 +107,8 @@ class userController {
       req.user.role,
       req.user.userName,
       req.user.userTel,
-      user.image
+      user.image,
+      user.ordersHistory
     );
 
     return res.json({ token });
@@ -138,7 +149,39 @@ class userController {
         user.role,
         user.userName,
         user.userTel,
-        user.image
+        user.image,
+        user.ordersHistory
+      );
+
+      return res.json({ token });
+    } catch (e) {
+      next(ApiError.internal(e.message));
+    }
+  }
+
+  async setOrdersHistory(req, res, next) {
+    try {
+      const { id, ordersHistory } = req.body;
+
+      const user = await User.findOne({ where: { id } });
+      if (!user) {
+        return next(ApiError.badRequest("Пользователь не найден"));
+      }
+
+      if (ordersHistory) {
+        user.ordersHistory = ordersHistory;
+      }
+
+      await user.save();
+
+      const token = generateJwt(
+        user.id,
+        user.email,
+        user.role,
+        user.userName,
+        user.userTel,
+        user.image,
+        user.ordersHistory
       );
 
       return res.json({ token });
