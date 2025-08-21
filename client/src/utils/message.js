@@ -36,7 +36,7 @@ export const sendMessageTG = (
   }
   message += `\n`;
   message += `<b>Сумма к оплате: </b> ${fullPrice} ₽\n`;
-  message += `<b>Способ оплаты: </b> Наличными курьеру} ₽\n`;
+  message += `<b>Способ оплаты: </b> Наличными курьеру \n`;
 
   axios
     .post(URI_API, {

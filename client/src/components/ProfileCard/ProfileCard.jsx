@@ -25,21 +25,6 @@ const ProfileCard = observer(() => {
   const [imagePreview, setImagePreview] = useState("");
 
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    check()
-      .then((data) => {
-        user.setUser(data);
-        user.setIsAuth(true);
-      })
-      .catch((error) => {
-        if (error.response?.status !== 401) {
-          console.error("Check error:", error);
-        }
-      })
-      .finally(() => setLoading(false));
-  }, []);
 
   let image = new Image();
   image.onload = function () {
@@ -161,10 +146,6 @@ const ProfileCard = observer(() => {
       updateUser(user.user.id, profileName, profileTel, userImage);
     }
   };
-
-  if (loading) {
-    return <Loader />;
-  }
 
   return (
     <div className="profile-card">

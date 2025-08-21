@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../index";
 import Schedule from "../../components/Schedule/Schedule";
@@ -11,14 +11,30 @@ import ModalConfirm from "../../components/Modals/ModalConfirm/ModalConfirm";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import MailSVG from "../../components/SVG/MailSVG";
 import { setOrdersHistory } from "../../http/userAPI";
+import { check } from "../../http/userAPI";
+import Loader from "../../components/UI/Loader/Loader";
 
 const Profile = observer(() => {
   const { user } = useContext(Context);
   const navigate = useNavigate();
-
   const userOrders = user.userOrders;
-
   const [isModalConfirmOpened, setIsModalConfirmOpened] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    check()
+      .then((data) => {
+        user.setUser(data);
+        user.setIsAuth(true);
+        user.setUserOrders(JSON.parse(data.ordersHistory) || []);
+      })
+      .catch((error) => {
+        if (error.response?.status !== 401) {
+          console.error("Check error:", error);
+        }
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   const modalConfirmOptions = {
     title: "Выход из Личного кабинета",
@@ -109,6 +125,10 @@ const Profile = observer(() => {
       // Очистка интервала при размонтировании компонента
       return () => clearInterval(activeIntervals[order.id]);
     });
+  }
+
+  if (loading) {
+    return <Loader />;
   }
 
   return (
