@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
-
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Yanone+Kaffeesatz:wght@200..700&display=swap");
 
 * {
@@ -110,7 +109,7 @@ li {
 }
 
 /* 2GIS MAP */
-.mapgl_SqprqBDt0m3ck8ImwnZ0{
+.mapgl_SqprqBDt0m3ck8ImwnZ0 {
   z-index: 1 !important;
 }
 
@@ -143,7 +142,7 @@ li {
 @media (max-width: 1024px) {
   .header__list,
   .button-settings,
-  .button-true-auth{
+  .button-true-auth {
     display: none;
   }
   .header__logo-content {
@@ -187,14 +186,14 @@ li {
   .price-group-desktop {
     display: none;
   }
-  .auth-success-wrapper{
+  .auth-success-wrapper {
     flex-direction: column-reverse;
   }
-  .profile-active-order-heading-wrapper{
+  .profile-active-order-heading-wrapper {
     width: 100%;
     margin-bottom: 10px;
   }
-  .profile-card{
+  .profile-card {
     width: 100%;
   }
 }
@@ -315,7 +314,7 @@ li {
   .main-menu__link:last-child {
     margin-right: 10px;
   }
-  .team__list-image{
+  .team__list-image {
     width: 150px;
     height: 150px;
   }
@@ -332,7 +331,7 @@ li {
     width: 100%;
   }
   .header__logo-heading {
-    font-size: 18px;
+    font-size: 28px;
   }
   .logo {
     min-width: 40px;

@@ -44,17 +44,20 @@
 }
 
 .header__logo-heading {
-  font-size: 20px;
+  font-size: 30px;
+  font-family: "Yanone Kaffeesatz", serif;
   font-weight: 600;
   color: #ffffff;
-  margin-bottom: 3px;
+  transform: translateY(2px);
 }
 
 .header__logo-description-container {
+  display: none;
   width: fit-content;
   padding: 1px 6px;
   border-radius: 10px;
   background-color: #dddddd52;
+  margin-top: 3px;
 }
 
 .header__logo-description {

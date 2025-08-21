@@ -12,7 +12,6 @@ import { getUserCart } from "../../utils/functions";
 const Header = observer(() => {
   const { user } = useContext(Context);
   const [burgerState, setBurgerState] = useState(false);
-
   const [imageLoaded, setImageLoaded] = useState(false);
 
   let image = new Image();
