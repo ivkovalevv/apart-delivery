@@ -1,4 +1,4 @@
-# 🛍 Apart-Delivery — интернет-магазин
+# 🏪 Apart-Delivery — интернет-магазин
 
 [![Сайт](https://img.shields.io/badge/-Сайт-1E88E5?style=for-the-badge)](https://apart-delivery.ru/)
 [![Исходный код](https://img.shields.io/badge/-ИСХОДНЫЙ_КОД-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ivkovalevv/apart-delivery)
