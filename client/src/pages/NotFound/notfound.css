@@ -1,0 +1,17 @@
+.notfound-wrapper {
+  width: 100%;
+  height: calc(100vh - 200px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: clamp(1.875rem, 0.5787rem + 6.4815vw, 6.25rem);
+}
+
+.notfound-heading {
+  font-size: clamp(1.25rem, 0.4722rem + 3.8889vw, 3.875rem);
+  margin-bottom: 5px;
+}
+
+.notfound-description {
+  font-size: clamp(0.875rem, 0.5417rem + 1.6667vw, 2rem);
+}
