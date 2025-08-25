@@ -22,9 +22,13 @@ const CartForm = observer(() => {
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [isModalConfirmOpened, setIsModalConfirmOpened] = useState(false);
 
-  const [nameValue, setNameValue] = useState("");
+  const [nameValue, setNameValue] = useState(
+    user.user.userName === "Гость" ? "" : user.user.userName
+  );
   const [isValidName, setIsValidName] = useState(true);
-  const [phoneValue, setPhoneValue] = useState("");
+  const [phoneValue, setPhoneValue] = useState(
+    user.user.userTel === "+7 9999999999" ? "" : user.user.userTel
+  );
   const [isValidPhoneValue, setIsValidPhoneValue] = useState(true);
   const [isCorrectPhoneValue, setIsCorrectPhoneValue] = useState(true);
   const [textareaValue, setTextareaValue] = useState("");
